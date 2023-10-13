@@ -46,6 +46,14 @@ const IndexStyles = StyleSheet.create({
         top: 10,
         left: 10,
     },
+    contUserLogueado: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        borderWidth: 1,
+        paddingHorizontal: 20,
+        borderRadius: 50,
+    },
     pressableEndpoints: {
         height: "100%",
         width: "100%",

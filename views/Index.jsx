@@ -25,7 +25,7 @@ import { getDoc, doc, setDoc, collection } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
 //Con useContext le digo desde cual contexto quiero obtener los datos
-import { propContext } from "../context/propContext";
+import { propContext, userContext } from "../context/propContext";
 
 
 const Index = () => {
@@ -40,6 +40,7 @@ const Index = () => {
         setLoaded
     } = useContext(propContext); //Es una constante que contiene los datos del contexto
 
+    const { isLoged, setIsLoged, setUserLogueado, userLogueado } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
 
     const navigation = useNavigation()
 
@@ -112,12 +113,19 @@ const Index = () => {
                     />
                 </Pressable>
             </View>
-            
-                <Image
-                    style={IndexStyles.imagenEncabezado}
-                    source={{ uri: 'https://academia.finneg.com/pluginfile.php/1/theme_moove/logo/1694006580/logo_academia_510px.png' }}
-                />
-            
+
+            {
+                isLoged &&
+                <View style={IndexStyles.contUserLogueado}>
+                    <Text fontSize='xl'>{userLogueado.usuario}</Text>
+                </View>
+            }
+
+            <Image
+                style={IndexStyles.imagenEncabezado}
+                source={{ uri: 'https://academia.finneg.com/pluginfile.php/1/theme_moove/logo/1694006580/logo_academia_510px.png' }}
+            />
+
 
             <Image
                 style={IndexStyles.imagen}
@@ -172,13 +180,28 @@ const Index = () => {
                         >
                             <Text style={IndexStyles.textBtn}>Info</Text>
                         </Button>
-                        <Button
-                            width={130}
-                            borderRadius={50}
-                            onPress={() => navigation.navigate('Login')}
-                        >
-                            <Text style={IndexStyles.textBtn}>Login</Text>
-                        </Button>
+                        {
+                            infoApp.activa
+                                ?
+                                <Button
+                                    width={130}
+                                    borderRadius={50}
+                                    onPress={() => navigation.navigate('Login')}
+                                >
+                                    <Text style={IndexStyles.textBtn}>{isLoged ? 'Home' : 'Login'}</Text>
+                                </Button>
+                                :
+                                <Button
+                                    width={130}
+                                    borderRadius={50}
+                                    onPress={() => Alert.alert(`La app ha sido desactivada por el administrador`)}
+                                    backgroundColor='red.500'
+                                    opacity={0.8}
+                                >
+                                    <Text style={IndexStyles.textBtn}>Inactiva</Text>
+                                </Button>
+                        }
+
                     </View>
             }
 

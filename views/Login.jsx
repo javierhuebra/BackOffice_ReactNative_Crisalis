@@ -1,24 +1,47 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { View, Alert } from "react-native";
 import { Input, Text, Button, useToast } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-const URL = 'http://192.168.0.109:8080/api/login'
+
+//Con useContext le digo desde cual contexto quiero obtener los datos
+import { propContext, userContext } from "../context/propContext";
+
+//Importo las funciones dde async storage
+import { saveStorageDatos, deleteStorageDatos } from "../controllers/localStorageController";
+
+//Importo los estilos
+import LoginStyles from "../stylesheets/LoginStyles";
+
 
 const Login = () => {
-    const [email, setEmail] = useState('')
+    const { infoApp } = useContext(propContext); //Es una constante que contiene los datos del contexto
+
+    const { isLoged, setIsLoged, setUserLogueado } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
+
+    const [usuario, setUsuario] = useState('')//Esto podria ser un unico estado con un objeto pero me es comodo asi
     const [password, setPassword] = useState('')
 
-    const navigation = useNavigation()
+    const URL = `${infoApp.ip}:${infoApp.port}/login`//Extraigo del contexto la ip y el puerto que viene del servidor de desarrollo
+
+    const navigation = useNavigation()//Para moverse entre pantallas
     
     const toast = useToast();
 
+    //Funcion para cerrar sesion
+    const cerrarSesion = () => {
+        setIsLoged(false)
+        deleteStorageDatos()
+    }
+
+
+    //Funcion para enviar el formulario de
     const handleSubmit = async () => {
-        if (email === '' || password === ''){
+        if (usuario === '' || password === ''){
             Alert.alert('Ambos los campos son obligatorios!', 'Por favor complete todos los campos.')
         }else{
-            const userLoginRequest = {
-                email,
+            const loginDTO = { //Aca se mapea con la forma de javascript que no hace falta poner los dos puntos email: email, password: password, porque se llaman igual
+                usuario,
                 password
             }
 
@@ -29,21 +52,34 @@ const Login = () => {
                         'Content-Type': 'application/json'
                     },
 
-                    body: JSON.stringify(userLoginRequest)
+                    body: JSON.stringify(loginDTO)
                 })
-
+                
                 if(response.ok) {
                     const responseData = await response.json()//Se parsea de json porque es un objeto
-                    //console.log(responseData)
-                    toast.show({description: `¡Bienvenido ${responseData.email}!`})
-                    navigation.navigate('Home', {data: responseData})
-
+                    console.log(responseData)
+                    
+                    toast.show({description: `¡Autenticado correctamente ${responseData.usuario}!`})
+                    
+                    
+                    saveStorageDatos(responseData)//Guardo los datos en el storage
+                    setUserLogueado(responseData)//Guardo los datos en el contexto
+                    setIsLoged(true)//Guardo los datos en el contexto
+                    /* navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Home' }],
+                      }); */
+                    navigation.replace('Home')
+                    navigation.navigate('Home')
                 }else{
                     const responseData = await response.text()//Si la respuesta no es ok me manda un string, por eso no se puede parsear a json
-                    if(response.status == 401){
+                    if(response.status == 404){
+                        console.log(responseData)
                         Alert.alert(`Mensaje del servidor: ${responseData}`)
                     }else{
-                        Alert.alert("Error de servidor.")
+                        console.log(responseData)
+                        console.log(response.status)
+                        Alert.alert(`Mensaje del servidor: ${responseData}`)
                     }
                 }
             }catch(error){
@@ -52,14 +88,24 @@ const Login = () => {
         }
     }
 
+    useEffect(() => {
+        console.log('USE EFFECT LOGIN')
+        if(isLoged) {
+            navigation.replace('Home')
+            navigation.navigate('Home')
+        }
+        
+    }, [])
+
     return ( 
-        <View style={{ padding: 15 }}>
+        <View style={LoginStyles.container}>
+            <Text>POST a URL: {URL}</Text>
             <Input
                 variant="rounded"
                 placeholder="Email"
                 backgroundColor='#FFF'
                 mb='5'
-                onChangeText={text => setEmail(text)}
+                onChangeText={text => setUsuario(text)}
             />
             <Input
                 variant="rounded"
@@ -76,6 +122,17 @@ const Login = () => {
             >
                 <Text color='white' fontWeight='bold' fontSize={18}>LOG IN</Text>
             </Button>
+            {
+                isLoged
+                &&
+                <Button
+                    mb='5'
+                    borderRadius={50}
+                    onPress={() => cerrarSesion()}
+                    >
+                    <Text color='white' fontWeight='bold' fontSize={18}>LOG OUT</Text>
+                </Button>
+            }
         </View>
      );
 }

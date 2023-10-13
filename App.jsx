@@ -31,6 +31,9 @@ import Login from './views/Login';
 //Importo el context provider de las propiedades
 import PropsComponentProvider from './context/PropsComponentProvider';
 
+//Importo el context provider de la sesion
+import SessionContextProvider from './context/SessionContextProvider';
+
 
 //Creo el stack para la navegacion
 const Stack = createNativeStackNavigator();
@@ -44,68 +47,70 @@ const App = () => {
     LogBox.ignoreLogs(['In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.']);
   }, []);
 
-  
+
 
   return (
     <>
       <NativeBaseProvider>
         <PropsComponentProvider>
-          <StatusBar
-            barStyle='light-content'
-            backgroundColor='black'
-          />
+          <SessionContextProvider>
+            <StatusBar
+              barStyle='light-content'
+              backgroundColor='black'
+            />
 
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{
-                animation: 'none', // Cambia la animación aquí
-              }}
-              //ruta en la que se inicia
-              initialRouteName='Index'
-            >
-              <Stack.Screen
-                name="Index"
-                component={Index}
-                options={{
-                  title: "Index",
-
-                  //Anular la barra de navegacion
-                  headerShown: false
+            <NavigationContainer>
+              <Stack.Navigator
+                screenOptions={{
+                  animation: 'none', // Cambia la animación aquí
                 }}
-              />
+                //ruta en la que se inicia
+                initialRouteName='Index'
+              >
+                <Stack.Screen
+                  name="Index"
+                  component={Index}
+                  options={{
+                    title: "Index",
 
-              <Stack.Screen
-                name="Info"
-                component={Info}
-                options={{
-                  title: "Información"
-                }}
-              />
+                    //Anular la barra de navegacion
+                    headerShown: false
+                  }}
+                />
 
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                  title: "Login",
-                }}
-              />
+                <Stack.Screen
+                  name="Info"
+                  component={Info}
+                  options={{
+                    title: "Información"
+                  }}
+                />
 
-              <Stack.Screen
-                name="Home"
-                component={Home}
-                /* options={({ route }) => ({
-                    title: route.params.data.email,
-                    headerBackVisible:false
-                  })} */
-                options={{
+                <Stack.Screen
+                  name="Login"
+                  component={Login}
+                  options={{
+                    title: "Login",
+                  }}
+                />
 
-                  //Anular la barra de navegacion
-                  headerShown: false
-                }}
-              />
+                <Stack.Screen
+                  name="Home"
+                  component={Home}
+                  /* options={({ route }) => ({
+                      title: route.params.data.email,
+                      headerBackVisible:false
+                    })} */
+                  options={{
+                    title: "Home",
+                    //Anular la barra de navegacion
+                    //headerShown: false
+                  }}
+                />
 
-            </Stack.Navigator>
-          </NavigationContainer>
+              </Stack.Navigator>
+            </NavigationContainer>
+          </SessionContextProvider>
         </PropsComponentProvider>
       </NativeBaseProvider>
     </>
