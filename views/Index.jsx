@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 
 //Importo los estilos de este componente
 import IndexStyles from "../stylesheets/IndexStyles";
+import GlobalStyles from "../stylesheets/GlobalStyles";
 
 //Importo componentes
 import EndPoints from "../components/EndPoints";
@@ -96,7 +97,7 @@ const Index = () => {
     }, [])
 
     return (
-        <View style={IndexStyles.container}>
+        <View style={GlobalStyles.container}>
             <EndPoints
                 leerDatos={leerDatos}
                 modalVisible={modalVisible}
@@ -134,77 +135,96 @@ const Index = () => {
 
             {/* Aca van las imagenes dinamicas, es una prueba para ver como queda, se controlan desde firebase */}
 
-            <View style={IndexStyles.ScrollView}>
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
+            <View style={IndexStyles.contenedorImgBtn1}>
 
-                >
-                    {
-                        isLoading || !loaded ? <Text>Cargando imagenes...</Text> :
-                            //Debo convertir el objeto en un array para poder iterarlo
-                            imagenesSlider?.map(([index, value]) => (
-                                <View key={index} style={IndexStyles.cardHor}>
-                                    <ImageBackground source={{ uri: value[1] }} resizeMode="cover" style={IndexStyles.imgBackground}>
-                                        <Text color='white' fontSize='3xl' fontWeight='bold'>{value[0]}</Text>
-                                    </ImageBackground>
-                                </View>
-                            ))
-                    }
+                <View style={IndexStyles.ScrollView}>
+                    <ScrollView
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
 
-
-                </ScrollView>
-            </View>
-
-
-
-
-
-            {
-                Object.keys(infoApp).length === 0 || isLoading
-                    ?
-                    <Center>
-                        <Spinner
-                            accessibilityLabel="Loading posts"
-                            size="lg"
-                            color="blue.500"
-                        />
-                        <Text>Cargando configuración</Text>
-                    </Center>
-                    :
-                    <View style={IndexStyles.contBotones}>
-                        <Button
-                            width={130}
-                            borderRadius={50}
-                            onPress={() => navigation.navigate('Info')}
-                        >
-                            <Text style={IndexStyles.textBtn}>Info</Text>
-                        </Button>
+                    >
                         {
-                            infoApp.activa
-                                ?
-                                <Button
-                                    width={130}
-                                    borderRadius={50}
-                                    onPress={() => navigation.navigate('Login')}
-                                >
-                                    <Text style={IndexStyles.textBtn}>{isLoged ? 'Home' : 'Login'}</Text>
-                                </Button>
-                                :
-                                <Button
-                                    width={130}
-                                    borderRadius={50}
-                                    onPress={() => Alert.alert(`La app ha sido desactivada por el administrador`)}
-                                    backgroundColor='red.500'
-                                    opacity={0.8}
-                                >
-                                    <Text style={IndexStyles.textBtn}>Inactiva</Text>
-                                </Button>
+                            isLoading || !loaded ? <Text>Cargando publicidades...</Text> :
+                                //Debo convertir el objeto en un array para poder iterarlo
+                                imagenesSlider?.map(([index, value]) => (
+                                    <View key={index} style={IndexStyles.cardHor}>
+                                        <ImageBackground source={{ uri: value[1] }} resizeMode="cover" style={IndexStyles.imgBackground}>
+                                            <Text color='white' fontSize='3xl' fontWeight='bold'>{value[0]}</Text>
+                                        </ImageBackground>
+                                    </View>
+                                ))
                         }
 
-                    </View>
-            }
 
+                    </ScrollView>
+                </View>
+
+
+
+
+
+                {
+                    Object.keys(infoApp).length === 0 || isLoading
+                        ?
+                        <Center>
+                            <Spinner
+                                accessibilityLabel="Loading posts"
+                                size="lg"
+                                color="blue.500"
+                            />
+                            <Text>Cargando configuración</Text>
+                        </Center>
+                        :
+                        <View style={IndexStyles.contBotones}>
+                            <Button
+                                width={130}
+                                elevation={2}
+                                backgroundColor='#0E79B2'
+                                onPress={() => navigation.navigate('Info')}
+                            >
+                                <Text style={IndexStyles.textBtn}>Info</Text>
+                            </Button>
+                            {
+                                infoApp.activa
+                                    ?
+                                    <>
+                                        {
+                                            isLoged ?
+                                            <Button
+                                                width={130}
+                                                backgroundColor='#0E79B2'
+                                                elevation={2}
+                                                onPress={() => navigation.navigate('Home')}
+                                            >
+                                                <Text style={IndexStyles.textBtn}>Home</Text>
+                                            </Button>
+                                            :
+                                            <Button
+                                                width={130}
+                                                backgroundColor='#0E79B2'
+                                                elevation={2}
+                                                onPress={() => navigation.navigate('Login')}
+                                            >
+                                                <Text style={IndexStyles.textBtn}>Ingresar</Text>
+                                            </Button>
+                                        }
+                                    </>
+
+                                    :
+                                    <Button
+                                        width={130}
+
+                                        onPress={() => Alert.alert(`La app ha sido desactivada por el administrador`)}
+                                        backgroundColor='red.500'
+                                        opacity={0.8}
+                                    >
+                                        <Text style={IndexStyles.textBtn}>Inactiva</Text>
+                                    </Button>
+                            }
+
+                        </View>
+                }
+            </View>
 
         </View>
     );

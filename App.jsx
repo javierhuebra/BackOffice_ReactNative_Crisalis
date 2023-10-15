@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 //Importo el provider de native base para usarla
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, Button } from "native-base";
 
 
 //Importacion de recursos para navigate
@@ -24,15 +24,18 @@ import {
 //Importación de vistas
 import Info from './views/Info';
 import Index from './views/Index';
-
 import Home from './views/Home';
 import Login from './views/Login';
+import Users from './views/Users';
 
 //Importo el context provider de las propiedades
 import PropsComponentProvider from './context/PropsComponentProvider';
 
 //Importo el context provider de la sesion
 import SessionContextProvider from './context/SessionContextProvider';
+import NavList from './components/NavList';
+import NavContextProvider from './context/NavContextProvider';
+
 
 
 //Creo el stack para la navegacion
@@ -54,62 +57,75 @@ const App = () => {
       <NativeBaseProvider>
         <PropsComponentProvider>
           <SessionContextProvider>
-            <StatusBar
-              barStyle='light-content'
-              backgroundColor='black'
-            />
+            <NavContextProvider>
+              <StatusBar
+                barStyle='light-content'
+                backgroundColor='black'
+              />
 
-            <NavigationContainer>
-              <Stack.Navigator
-                screenOptions={{
-                  animation: 'none', // Cambia la animación aquí
-                }}
-                //ruta en la que se inicia
-                initialRouteName='Index'
-              >
-                <Stack.Screen
-                  name="Index"
-                  component={Index}
-                  options={{
-                    title: "Index",
-
-                    //Anular la barra de navegacion
-                    headerShown: false
+              <NavigationContainer>
+                <Stack.Navigator
+                  screenOptions={{
+                    animation: 'none', // Cambia la animación aquí
                   }}
-                />
+                  //ruta en la que se inicia
+                  initialRouteName='Index'
+                >
+                  <Stack.Screen
+                    name="Index"
+                    component={Index}
+                    options={{
+                      title: "Index",
 
-                <Stack.Screen
-                  name="Info"
-                  component={Info}
-                  options={{
-                    title: "Información"
-                  }}
-                />
+                      //Anular la barra de navegacion
+                      headerShown: false
+                    }}
+                  />
 
-                <Stack.Screen
-                  name="Login"
-                  component={Login}
-                  options={{
-                    title: "Login",
-                  }}
-                />
+                  <Stack.Screen
+                    name="Info"
+                    component={Info}
+                    options={{
+                      title: "Información"
+                    }}
+                  />
 
-                <Stack.Screen
-                  name="Home"
-                  component={Home}
-                  /* options={({ route }) => ({
-                      title: route.params.data.email,
-                      headerBackVisible:false
-                    })} */
-                  options={{
-                    title: "Home",
-                    //Anular la barra de navegacion
-                    //headerShown: false
-                  }}
-                />
+                  <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                      title: "Login",
+                    }}
+                  />
 
-              </Stack.Navigator>
-            </NavigationContainer>
+                  <Stack.Screen
+                    name="Home"
+                    component={Home}
+                    /* options={({ route }) => ({
+                        title: route.params.data.email,
+                        headerBackVisible:false
+                      })} */
+                    options={{
+                      title: "Home",
+                      //Anular la barra de navegacion
+                      //headerShown: false
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Users"
+                    component={Users}
+                    options={{
+                      title: "Usuarios",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                </Stack.Navigator>
+              </NavigationContainer>
+            </NavContextProvider>
           </SessionContextProvider>
         </PropsComponentProvider>
       </NativeBaseProvider>

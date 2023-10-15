@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, Image } from "react-native";
 import { Input, Text, Button, useToast } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
@@ -12,6 +12,7 @@ import { saveStorageDatos, deleteStorageDatos } from "../controllers/localStorag
 
 //Importo los estilos
 import LoginStyles from "../stylesheets/LoginStyles";
+import GlobalStyles from "../stylesheets/GlobalStyles";
 
 
 const Login = () => {
@@ -25,7 +26,7 @@ const Login = () => {
     const URL = `${infoApp.ip}:${infoApp.port}/login`//Extraigo del contexto la ip y el puerto que viene del servidor de desarrollo
 
     const navigation = useNavigation()//Para moverse entre pantallas
-    
+
     const toast = useToast();
 
     //Funcion para cerrar sesion
@@ -37,15 +38,15 @@ const Login = () => {
 
     //Funcion para enviar el formulario de
     const handleSubmit = async () => {
-        if (usuario === '' || password === ''){
+        if (usuario === '' || password === '') {
             Alert.alert('Ambos los campos son obligatorios!', 'Por favor complete todos los campos.')
-        }else{
+        } else {
             const loginDTO = { //Aca se mapea con la forma de javascript que no hace falta poner los dos puntos email: email, password: password, porque se llaman igual
                 usuario,
                 password
             }
 
-            try{
+            try {
                 const response = await fetch(URL, {
                     method: 'POST',
                     headers: {
@@ -54,14 +55,14 @@ const Login = () => {
 
                     body: JSON.stringify(loginDTO)
                 })
-                
-                if(response.ok) {
+
+                if (response.ok) {
                     const responseData = await response.json()//Se parsea de json porque es un objeto
                     console.log(responseData)
-                    
-                    toast.show({description: `¡Autenticado correctamente ${responseData.usuario}!`})
-                    
-                    
+
+                    toast.show({ description: `¡Autenticado correctamente ${responseData.usuario}!` })
+
+
                     saveStorageDatos(responseData)//Guardo los datos en el storage
                     setUserLogueado(responseData)//Guardo los datos en el contexto
                     setIsLoged(true)//Guardo los datos en el contexto
@@ -71,18 +72,18 @@ const Login = () => {
                       }); */
                     navigation.replace('Home')
                     navigation.navigate('Home')
-                }else{
+                } else {
                     const responseData = await response.text()//Si la respuesta no es ok me manda un string, por eso no se puede parsear a json
-                    if(response.status == 404){
+                    if (response.status == 404) {
                         console.log(responseData)
                         Alert.alert(`Mensaje del servidor: ${responseData}`)
-                    }else{
+                    } else {
                         console.log(responseData)
                         console.log(response.status)
                         Alert.alert(`Mensaje del servidor: ${responseData}`)
                     }
                 }
-            }catch(error){
+            } catch (error) {
                 console.error("Error al enviar la solicitud: ", error)
             }
         }
@@ -90,51 +91,58 @@ const Login = () => {
 
     useEffect(() => {
         console.log('USE EFFECT LOGIN')
-        if(isLoged) {
+        if (isLoged) {
             navigation.replace('Home')
             navigation.navigate('Home')
         }
-        
+
     }, [])
 
-    return ( 
-        <View style={LoginStyles.container}>
-            <Text>POST a URL: {URL}</Text>
-            <Input
-                variant="rounded"
-                placeholder="Email"
-                backgroundColor='#FFF'
-                mb='5'
-                onChangeText={text => setUsuario(text)}
-            />
-            <Input
-                variant="rounded"
-                placeholder="Password confirm"
-                type="password"
-                backgroundColor='#FFF'
-                mb='5'
-                onChangeText={text => setPassword(text)}
-            />
-            <Button
-                mb='5'
-                borderRadius={50}
-                onPress={() => handleSubmit()}
-            >
-                <Text color='white' fontWeight='bold' fontSize={18}>LOG IN</Text>
-            </Button>
-            {
-                isLoged
-                &&
-                <Button
-                    mb='5'
-                    borderRadius={50}
-                    onPress={() => cerrarSesion()}
+    return (
+        <View style={GlobalStyles.container}>
+            <View style={LoginStyles.secondContainer}>
+                <Image source={require('../assets/images/logo.png')
+                } alt="logo imagen" style={LoginStyles.logo} />
+                <View style={LoginStyles.form}>
+
+                    <Text fontWeight='bold' textAlign='center'>Correo Electrónico</Text>
+                    <Input
+
+                        placeholder="Email"
+                        backgroundColor='#FFF'
+                        marginBottom={5}
+                        onChangeText={text => setUsuario(text)}
+                    />
+                    <Text fontWeight='bold' textAlign='center'>Contraseña</Text>
+                    <Input
+
+                        placeholder="Password"
+                        type="password"
+                        backgroundColor='#FFF'
+                        marginBottom={5}
+                        onChangeText={text => setPassword(text)}
+                    />
+                    <Button
+                        backgroundColor='#0E79B2'
+                        onPress={() => handleSubmit()}
                     >
-                    <Text color='white' fontWeight='bold' fontSize={18}>LOG OUT</Text>
-                </Button>
-            }
+                        <Text color='white' fontWeight='bold' fontSize={18}>Iniciar Sesión</Text>
+                    </Button>
+                    {
+                        /* isLoged
+                        &&
+                        <Button
+                            mb='5'
+                            borderRadius={50}
+                            onPress={() => cerrarSesion()}
+                            >
+                            <Text color='white' fontWeight='bold' fontSize={18}>LOG OUT</Text>
+                        </Button> */
+                    }
+                </View>
+            </View>
         </View>
-     );
+    );
 }
- 
+
 export default Login;

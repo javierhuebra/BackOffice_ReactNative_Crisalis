@@ -11,16 +11,16 @@ const IndexStyles = StyleSheet.create({
         paddingHorizontal: 10,
         justifyContent: 'space-around',
         alignItems: 'center',
-        
+        backgroundColor: '#E1EFC5'
 
     },
     contBotones: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 15,
         //width: Dimensions.get('window').width //Ta lindo esto para saber el ancho de la pantalla
-        width: 450
+        width: '100%',
+
     },
     imagenEncabezado: {
         width: screenWidthDos, // Ancho de la pantalla
@@ -31,7 +31,7 @@ const IndexStyles = StyleSheet.create({
         width: '100%', // Ancho de la pantalla
         height: imgHeight, // Alto de la pantalla
         resizeMode: 'contain', // Mantiene la proporción sin deformar
-        borderRadius: 10
+        borderRadius: 10,
     },
     textBtn: {
         color: 'white',
@@ -45,6 +45,7 @@ const IndexStyles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         left: 10,
+
     },
     contUserLogueado: {
         position: 'absolute',
@@ -57,32 +58,53 @@ const IndexStyles = StyleSheet.create({
     pressableEndpoints: {
         height: "100%",
         width: "100%",
-        backgroundColor: '#bdd3db49',
+        backgroundColor: 'white',
         borderRadius: 50,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        elevation: 5,
     },
     engineeIcon: {
         height: 40,
         width: 40
     },
-    cardHor:{
+    cardHor: {
         width: 380,
         height: "100%",
         borderRadius: 10,
         marginRight: 10,
         justifyContent: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
-    ScrollView:{
+    ScrollView: {
         height: 150,
         width: '100%',
-        marginTop: 10,       
+        
+        
     },
-    imgBackground:{
+    imgBackground: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
+    },
+    contenedorImgBtn1: {
+        backgroundColor: '#ffffff',
+        width: '100%',
+        padding: 10,
+        height: '40%',
+        justifyContent: 'space-around',
+        borderRadius: 10,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     }
 });
 

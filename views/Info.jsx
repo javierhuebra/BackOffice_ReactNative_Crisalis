@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { View, Alert } from "react-native";
 import { Input, Text, Button, useToast, ScrollView, Center } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-import { Image, StyleSheet} from "react-native";
+import { Image, StyleSheet, View} from "react-native";
+
+//Importo los estilos globales
+import GlobalStyles from "../stylesheets/GlobalStyles";
 
 const URL = 'http://192.168.0.109:8080/api/login'
 
@@ -11,12 +13,12 @@ const URL = 'http://192.168.0.109:8080/api/login'
 const Info = () => {
    
     return (
-        <View style={{ flex: 1 }}>
+        <View style={GlobalStyles.container}>
             <ScrollView>
-                <View style={{ paddingLeft: 15, paddingTop: 15, paddingRight: 15 }}>
+                <View style={styles.contScroll}>
                     <Text fontSize="xl" mb="2">Bienvenido a Crisalis</Text>
                     <Text mb="2">
-                        Nuestra aplicación es un poderoso software Backoffice diseñado para simplificar la gestión de compras de productos y la asignación de servicios.
+                        Nuestra aplicación es un poderoso software Backoffice diseñado para simplificar la gestión de ventas de productos y la asignación de servicios.
                         Con <Text fontWeight="bold">Crisalis</Text>, puedes optimizar y agilizar tus operaciones comerciales de una manera intuitiva y eficiente.
                     </Text>
                     <Text fontSize="xl" mb="2">Principales Características</Text>
@@ -48,5 +50,15 @@ const Info = () => {
         </View>
     );
 }
-
+const styles = StyleSheet.create({
+    contScroll:{
+        paddingLeft: 15, 
+        paddingTop: 15, 
+        paddingRight: 15,
+        backgroundColor:'white',
+        marginVertical: 10,
+        borderRadius: 10,
+        elevation: 2,
+    }
+})
 export default Info;

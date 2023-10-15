@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Text, Button } from 'native-base'
 import { useNavigation } from "@react-navigation/native";
 
@@ -10,7 +10,10 @@ import { userContext } from "../context/propContext";
 //Importo las funciones de async storage
 import { deleteStorageDatos } from "../controllers/localStorageController";
 
-const Home = ({ route }) => {
+//Importo estilos globales
+import GlobalStyles from "../stylesheets/GlobalStyles";
+
+const Home = () => {
     const { setIsLoged } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
 
     const navigation = useNavigation()
@@ -28,8 +31,15 @@ const Home = ({ route }) => {
     }, [])
 
     return (
-        <View style={styles.contenedor}>
+        <View style={GlobalStyles.containerClaro}>
             <Text>Home - Logueado</Text>
+            <Button
+                mb='5'
+                borderRadius={50}
+                onPress={() => navigation.navigate('Users')}
+            >
+                <Text color='white' fontWeight='bold' fontSize={18}>USERS</Text>
+            </Button>
             <Button
                 mb='5'
                 borderRadius={50}
@@ -40,15 +50,6 @@ const Home = ({ route }) => {
         </View>
     );
 }
-const styles = StyleSheet.create({
-    contenedor: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    header: {
-        backgroundColor: 'lightblue',
-        padding: 5
-    }
-})
+
 
 export default Home;
