@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Pressable } from "react-native";
-import { Text, Button, Spinner, Input } from 'native-base'
+import { Text, Button, Spinner, Input, HamburgerIcon } from 'native-base'
 
 //Con useContext le digo desde cual contexto quiero obtener los datos
 import { navContext } from "../context/propContext";
@@ -10,8 +10,8 @@ const NavList = () => {
 
     return (
         <View style={styles.contenedor}>
-            <Pressable style={styles.presionable} onPress={()=>setOpenNav(!openNav)}>
-                <Text>NavList</Text>
+            <Pressable style={styles.presionable} onPress={() => setOpenNav(!openNav)}>
+                <HamburgerIcon size='10' />
             </Pressable>
         </View>
     );
@@ -19,12 +19,13 @@ const NavList = () => {
 
 const styles = StyleSheet.create({
     contenedor: {
-        backgroundColor: 'red',
-        padding: 15,
+        paddingHorizontal: 5,
         borderRadius: 10,
+        borderWidth: 3,
+        borderColor: '#dbdbdb',
 
     },
-    presionable:{
+    presionable: {
         width: '100%',
         height: '100%',
     },

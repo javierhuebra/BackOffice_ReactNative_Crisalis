@@ -53,42 +53,48 @@ const Index = () => {
         setIsLoading(true);
 
         const configRef = doc(db, "configuracion", "info-app");
-        const docSnap = await getDoc(configRef);
+        try{
+            const docSnap = await getDoc(configRef);
 
-        if (docSnap.exists()) {
-            console.log("Datos cargados en el contexto:", docSnap.data());
-
-            //Guardo los datos en el contexto
-            setInfoApp(docSnap.data());
-
-            //Convierto el objeto de imagenes para poder iterarlo
-            const imagenes_snap = Object.entries(docSnap.data().imagenes)
-
-            //Algoritmo par ordenar 
-            imagenes_snap.sort((a, b) => {
-                if (a < b) {
-                    return -1
-                }
-                if (a > b) {
-                    return 1
-                }
-            })
-
-
-            setImagenesSlider(imagenes_snap)
-
-            //console.log('Imagenes ordenadas:', imagenesSlider)
-            setLoaded(true);
-            setIsLoading(false);
-
-
-
-        } else {
-            // docSnap.data() va a ser undefined en este caso
-            console.log("No such document!");
-
+            if (docSnap.exists()) {
+                console.log("Datos cargados en el contexto:", docSnap.data());
+    
+                //Guardo los datos en el contexto
+                setInfoApp(docSnap.data());
+    
+                //Convierto el objeto de imagenes para poder iterarlo
+                const imagenes_snap = Object.entries(docSnap.data().imagenes)
+    
+                //Algoritmo par ordenar 
+                imagenes_snap.sort((a, b) => {
+                    if (a < b) {
+                        return -1
+                    }
+                    if (a > b) {
+                        return 1
+                    }
+                })
+    
+    
+                setImagenesSlider(imagenes_snap)
+    
+                //console.log('Imagenes ordenadas:', imagenesSlider)
+                setLoaded(true);
+                setIsLoading(false);
+    
+    
+    
+            } else {
+                // docSnap.data() va a ser undefined en este caso
+                console.log("No such document!");
+    
+                setIsLoading(false);
+            }
+        }catch(err){
+            console.log(err)
             setIsLoading(false);
         }
+        
     }
 
     useEffect(() => {
