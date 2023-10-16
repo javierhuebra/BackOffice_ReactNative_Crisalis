@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { View, Alert, Image } from "react-native";
-import { Input, Text, Button, useToast } from "native-base";
+import { Input, Text, Button, useToast, Spinner } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
 
@@ -22,6 +22,8 @@ const Login = () => {
 
     const [usuario, setUsuario] = useState('')//Esto podria ser un unico estado con un objeto pero me es comodo asi
     const [password, setPassword] = useState('')
+
+    const [loading, setLoading] = useState(false)//Para mostrar el loading
 
     const URL = `${infoApp.ip}:${infoApp.port}/login`//Extraigo del contexto la ip y el puerto que viene del servidor de desarrollo
 
@@ -47,6 +49,7 @@ const Login = () => {
             }
 
             try {
+                setLoading(true)
                 const response = await fetch(URL, {
                     method: 'POST',
                     headers: {
@@ -58,6 +61,7 @@ const Login = () => {
 
                 if (response.ok) {
                     const responseData = await response.json()//Se parsea de json porque es un objeto
+                    setLoading(false)
                     console.log(responseData)
 
                     toast.show({ description: `¡Autenticado correctamente ${responseData.usuario}!` })
@@ -106,39 +110,38 @@ const Login = () => {
                 <View style={LoginStyles.form}>
 
                     <Text fontWeight='bold' textAlign='center'>Correo Electrónico</Text>
-                    <Input
-
-                        placeholder="Email"
-                        backgroundColor='#FFF'
-                        marginBottom={5}
-                        onChangeText={text => setUsuario(text)}
-                    />
-                    <Text fontWeight='bold' textAlign='center'>Contraseña</Text>
-                    <Input
-
-                        placeholder="Password"
-                        type="password"
-                        backgroundColor='#FFF'
-                        marginBottom={5}
-                        onChangeText={text => setPassword(text)}
-                    />
-                    <Button
-                        backgroundColor='#0E79B2'
-                        onPress={() => handleSubmit()}
-                    >
-                        <Text color='white' fontWeight='bold' fontSize={18}>Iniciar Sesión</Text>
-                    </Button>
                     {
-                        /* isLoged
-                        &&
-                        <Button
-                            mb='5'
-                            borderRadius={50}
-                            onPress={() => cerrarSesion()}
-                            >
-                            <Text color='white' fontWeight='bold' fontSize={18}>LOG OUT</Text>
-                        </Button> */
+                        loading
+                            ?
+                            <Spinner color="blue.500" />
+                            :
+                            <>
+                                <Input
+
+                                    placeholder="Email"
+                                    backgroundColor='#FFF'
+                                    marginBottom={5}
+                                    onChangeText={text => setUsuario(text)}
+                                />
+                                <Text fontWeight='bold' textAlign='center'>Contraseña</Text>
+                                <Input
+
+                                    placeholder="Password"
+                                    type="password"
+                                    backgroundColor='#FFF'
+                                    marginBottom={5}
+                                    onChangeText={text => setPassword(text)}
+                                />
+                                <Button
+                                    bg='denim.100'
+                                    onPress={() => handleSubmit()}
+                                >
+                                    <Text color='white' fontWeight='bold' fontSize={18}>Iniciar Sesión</Text>
+                                </Button>
+                            </>
                     }
+
+
                 </View>
             </View>
         </View>

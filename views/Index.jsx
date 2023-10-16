@@ -185,7 +185,7 @@ const Index = () => {
                             <Button
                                 width={130}
                                 elevation={2}
-                                backgroundColor='#0E79B2'
+                                bg='denim.100'
                                 onPress={() => navigation.navigate('Info')}
                             >
                                 <Text style={IndexStyles.textBtn}>Info</Text>
@@ -198,7 +198,7 @@ const Index = () => {
                                             isLoged ?
                                             <Button
                                                 width={130}
-                                                backgroundColor='#0E79B2'
+                                                bg='denim.100'
                                                 elevation={2}
                                                 onPress={() => navigation.navigate('Home')}
                                             >
@@ -207,7 +207,7 @@ const Index = () => {
                                             :
                                             <Button
                                                 width={130}
-                                                backgroundColor='#0E79B2'
+                                                bg='denim.100'
                                                 elevation={2}
                                                 onPress={() => navigation.navigate('Login')}
                                             >
@@ -222,6 +222,7 @@ const Index = () => {
 
                                         onPress={() => Alert.alert(`La app ha sido desactivada por el administrador`)}
                                         backgroundColor='red.500'
+                                        
                                         opacity={0.8}
                                     >
                                         <Text style={IndexStyles.textBtn}>Inactiva</Text>

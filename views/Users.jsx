@@ -1,6 +1,6 @@
-import React, { useEffect, useContext, useState, Fragment } from "react";
+import React, { useEffect, useContext, useState } from "react";
 
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Pressable } from "react-native";
 import { Text, Button, Spinner, Input, CloseIcon, ThreeDotsIcon, CheckIcon } from 'native-base'
 
 //Importo para la navegación
@@ -13,7 +13,7 @@ import { userContext, propContext, navContext } from "../context/propContext";
 import GlobalStyles from "../stylesheets/GlobalStyles";
 
 //Importo la funcion de fetchusuarios
-import { fetchUsuarios } from "../controllers/ABMuserController";
+import { fetchUsuarios, deleteUsuario } from "../controllers/ABMuserController";
 
 import UsersStyles from "../stylesheets/UsersStyles";
 import ListaNavegacion from "../components/ListaNavegacion";
@@ -32,7 +32,29 @@ const Users = () => {
 
     const navigation = useNavigation()
 
-    const icons = [<ThreeDotsIcon/>, <CloseIcon/>]
+    const handleClickedElement = async (id) => {
+        console.log(id)
+        
+        await deleteUsuario(URL, id)
+        .then(() => {
+            fetchUsuarios(URL, 0, setIsLoading)
+            .then((data) => {
+                console.log(data)
+
+                data.sort((a, b) => {
+                    if (a.usuario < b.usuario) {
+                      return -1;
+                    }
+                    if (a.usuario > b.usuario) {
+                      return 1;
+                    }
+                    return 0;
+                  });
+
+                setUsuarios(data)
+            })
+        })     
+    }
 
     useEffect(() => {
         console.log('USE EFFECT USERS')
@@ -43,6 +65,17 @@ const Users = () => {
         fetchUsuarios(URL, 0, setIsLoading)
             .then((data) => {
                 console.log(data)
+                
+                data.sort((a, b) => {
+                    if (a.usuario < b.usuario) {
+                      return -1;
+                    }
+                    if (a.usuario > b.usuario) {
+                      return 1;
+                    }
+                    return 0;
+                  });
+
                 setUsuarios(data)
             })
 
@@ -64,7 +97,7 @@ const Users = () => {
                     </View>
                     <Button
                         width='35%'
-                        backgroundColor='#0E79B2'
+                        bg='denim.100'
                         onPress={() => setOpenModal(true)}
                     >
                         <Text fontWeight='bold' color='white'>Crear Usuario</Text>
@@ -106,19 +139,24 @@ const Users = () => {
                                                     }
                                                 </View>
                                                 <View style={[UsersStyles.col, UsersStyles.colAcciones]}>
-                                                    <View style={UsersStyles.accionContainer}>
-                                                        <View style={UsersStyles.icono}>
-                                                            
-                                                        </View>
+                                                    <Pressable
+                                                        style={UsersStyles.accionContainer}
+                                                        onPress={() => handleClickedElement(usuario.id)}
+                                                    >
 
+                                                        {
+                                                            usuario.eliminado
+                                                                ?
+                                                                <Text fontSize='18'>✔️</Text>
+                                                                :
+                                                                <Text fontSize='18'>❌</Text>
+                                                        }
 
-                                                    </View>
-                                                    <View style={UsersStyles.accionContainer}>
-                                                        <View style={UsersStyles.icono}>
-                                                            
-                                                        </View>
+                                                    </Pressable>
+                                                    <Pressable style={UsersStyles.accionContainer}>
+                                                        <Text fontSize='18'>🖍️</Text>
 
-                                                    </View>
+                                                    </Pressable>
                                                 </View>
                                             </View>
 

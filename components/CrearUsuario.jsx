@@ -109,14 +109,14 @@ const CrearUsuario = ({ openModal, setOpenModal }) => {
                                     )
                                 }
                                 <Button
-                                    backgroundColor='#0E79B2'
+                                    bg='denim.100'
                                     mb='3'
                                     onPress={() => handleCrearUsuario()}
                                 >
                                     <Text color='white' fontWeight='bold' fontSize={18}>Crear Usuario</Text>
                                 </Button>
                                 <Button
-                                    backgroundColor='red.800'
+                                    bg='red.800'
                                     onPress={() => {
                                         setOpenModal(false)
                                         setFormIniciado(false)
