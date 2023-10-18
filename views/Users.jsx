@@ -30,6 +30,8 @@ const Users = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [openModal, setOpenModal] = useState(false)
 
+    const [usuario, setUsuario] = useState({})
+
     const navigation = useNavigation()
 
     const handleClickedElement = async (id) => {
@@ -54,6 +56,11 @@ const Users = () => {
                 setUsuarios(data)
             })
         })     
+    }
+
+    const handleEditElement = (objetoUsuario) => {
+        setOpenModal(true)
+        setUsuario(objetoUsuario)
     }
 
     useEffect(() => {
@@ -89,6 +96,8 @@ const Users = () => {
             <CrearUsuario
                 openModal={openModal}
                 setOpenModal={setOpenModal}
+                usuario = {usuario}
+                setUsuario = {setUsuario}
             />
             <View style={UsersStyles.contenido}>
                 <View style={UsersStyles.contHeader}>
@@ -153,7 +162,7 @@ const Users = () => {
                                                         }
 
                                                     </Pressable>
-                                                    <Pressable style={UsersStyles.accionContainer}>
+                                                    <Pressable style={UsersStyles.accionContainer} onPress={() => handleEditElement(usuario)}>
                                                         <Text fontSize='18'>🖍️</Text>
 
                                                     </Pressable>

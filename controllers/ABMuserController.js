@@ -32,18 +32,37 @@ export const crearUsuario = async (url, usuario, password, setIsLoadingCallback)
 
 export const deleteUsuario = async (url, id) => {
     try {
-        
+
         await fetch(`${url}/api/usuarios/${id}`, {
             method: 'PATCH'
         })
             .then(resp => {
-                
+
                 if (resp.ok) console.log("se cambio el estado correctamente");
                 else console.log("no se pudo cambiar el estado");
             })
-        
+
     }
     catch (error) {
         console.error("Ocurrió un error al cambiar estado de usuario:", error);
+    }
+}
+
+export const modifyUsuario = async (url, id, usuario, password, setIsLoadingCallback) => {
+    try {
+        setIsLoadingCallback(true);
+        await fetch(`${url}/api/usuarios/${id}`, {
+            method: 'POST',
+            body: JSON.stringify({ usuario, password }),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(resp => {
+                setIsLoadingCallback(false);
+                if (resp.ok) console.log("se cambio el estado correctamenteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                else console.log("no se pudo cambiar el estado");
+            })
+    }
+    catch (error) {
+        console.error("Ocurrió un error al modificar usuario:", error);
     }
 }

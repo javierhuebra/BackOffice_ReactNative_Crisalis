@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Modal, View, Alert } from "react-native";
 import { Text, Button, Spinner, Input, useToast } from 'native-base'
 
@@ -6,13 +6,18 @@ import { Text, Button, Spinner, Input, useToast } from 'native-base'
 import CrearUsuarioStyles from "../stylesheets/CrearUsuarioStyles";
 
 //Importo funcion para crear usuarios
-import { crearUsuario } from "../controllers/ABMuserController";
+import { crearUsuario, modifyUsuario } from "../controllers/ABMuserController";
 
 //Con useContext le digo desde cual contexto quiero obtener los datos
 import { propContext } from "../context/propContext";
 import { err } from "react-native-svg/lib/typescript/xml";
 
-const CrearUsuario = ({ openModal, setOpenModal }) => {
+const CrearUsuario = ({
+    openModal,
+    setOpenModal,
+    usuario: usuarioObj,
+    setUsuario: setUsuarioObj
+}) => {
 
     const { infoApp } = useContext(propContext); //Para sacar la info de la app del context
 
@@ -25,19 +30,25 @@ const CrearUsuario = ({ openModal, setOpenModal }) => {
     const [usuario, setUsuario] = useState('');
     const [password, setPassword] = useState('');
 
+
+
     const [errores, setErrores] = useState([])
     const [formIniciado, setFormIniciado] = useState(false)
 
     const handleCrearUsuario = async () => {
         const validationErrors = [];
         setFormIniciado(false);
-        if (usuario === '' || password === '') {
-            validationErrors.push('Ambos campos son obligatorios.');
-        }
+        if (Object.keys(usuarioObj).length == 0)
+            if (usuario === '' || password === '') {
+                validationErrors.push('Ambos campos son obligatorios.');
+            }
 
-        if (password.length < 4 || password.length > 15) {
-            validationErrors.push('La contraseña debe estar entre 4 y 15 caracteres.');
-        }
+        if (Object.keys(usuarioObj).length == 0)
+            if (password.length < 4 || password.length > 15) {
+                validationErrors.push('La contraseña debe estar entre 4 y 15 caracteres.');
+            }
+
+
 
         if (!/\S+@\S+\.\S+/.test(usuario)) {
             validationErrors.push('El usuario debe ser un email válido.');
@@ -51,24 +62,56 @@ const CrearUsuario = ({ openModal, setOpenModal }) => {
             return;
         }
 
-        const response = await crearUsuario(URL, usuario, password, setIsLoading)
-            .then((data) => {
-                console.log("data: ", data.status)
-                if (data.ok) {
-                    toast.show({ description: "¡Usuario creado correctamente!" })
-                } else {
-                    Alert.alert(
-                        "Error del servidor",
-                        "No se pudo crear el usuario",
-                    );
-                }
-                setUsuario('')
-                setPassword('')
-                setOpenModal(false)
-            })
-        console.log(response)
+        if (Object.keys(usuarioObj).length > 0) {
+            try {
+                await modifyUsuario(URL, usuarioObj.id, usuario, password, setIsLoading)
+                    .then(() => {
+
+                        toast.show({ description: "¡Usuario modificado!" })
+
+                        setUsuario('')
+                        setPassword('')
+                        setUsuarioObj({})
+                        setOpenModal(false)
+                    })
+            } catch {
+                Alert.alert(
+                    "Error del servidor",
+                    "No se pudo modificar el usuario",
+                );
+            }
+
+
+
+        } else {
+            const response = await crearUsuario(URL, usuario, password, setIsLoading)
+                .then((data) => {
+                    console.log("data: ", data.status)
+                    if (data.ok) {
+                        toast.show({ description: "¡Usuario creado correctamente!" })
+                    } else {
+                        Alert.alert(
+                            "Error del servidor",
+                            "No se pudo crear el usuario",
+                        );
+                    }
+                    setUsuario('')
+                    setPassword('')
+                    setOpenModal(false)
+                })
+            console.log(response)
+        }
+
+
 
     }
+    useEffect(() => {
+        console.log('USE EFFECT CREAR USUARIO')
+        console.log(usuarioObj)
+        if (Object.keys(usuarioObj).length > 0) setUsuario(usuarioObj.usuario)
+        console.log("usuarioooooooooooooooooooooo: ", usuarioObj)
+
+    }, [usuarioObj])
 
     return (
         <Modal
@@ -78,7 +121,14 @@ const CrearUsuario = ({ openModal, setOpenModal }) => {
         >
             <View style={CrearUsuarioStyles.container}>
                 <View style={CrearUsuarioStyles.contenido}>
-                    <Text fontSize='xl' fontWeight='bold' textAlign='center' color='#3E5117'>Ingresando usuario al sistema</Text>
+                    {
+                        Object.keys(usuarioObj).length > 0
+                            ?
+                            <Text fontSize='xl' fontWeight='bold' textAlign='center' color='#bcce58'>Editando usuario</Text>
+                            :
+                            <Text fontSize='xl' fontWeight='bold' textAlign='center' color='#3E5117'>Ingresando usuario al sistema</Text>
+                    }
+
                     {
                         isLoading
                             ?
@@ -92,6 +142,7 @@ const CrearUsuario = ({ openModal, setOpenModal }) => {
                                     placeholder="Email"
                                     backgroundColor='#FFF'
                                     marginBottom={5}
+                                    value={usuario}
                                     onChangeText={text => setUsuario(text.toLowerCase())}
                                 />
                                 <Text fontWeight='bold' textAlign='center'>Contraseña</Text>
@@ -103,9 +154,9 @@ const CrearUsuario = ({ openModal, setOpenModal }) => {
                                     onChangeText={text => setPassword(text)}
                                 />
                                 {
-                                    errores.length > 0 && formIniciado 
+                                    errores.length > 0 && formIniciado
                                     &&
-                                    errores.map((err,index) => <Text key={index} color='red.500' textAlign='center'>{err}</Text>
+                                    errores.map((err, index) => <Text key={index} color='red.500' textAlign='center'>{err}</Text>
                                     )
                                 }
                                 <Button
@@ -120,6 +171,9 @@ const CrearUsuario = ({ openModal, setOpenModal }) => {
                                     onPress={() => {
                                         setOpenModal(false)
                                         setFormIniciado(false)
+                                        setUsuarioObj({})
+                                        setUsuario('')
+                                        setPassword('')
                                     }
                                     }
                                 >
