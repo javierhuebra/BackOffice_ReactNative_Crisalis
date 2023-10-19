@@ -47,7 +47,7 @@ const Index = () => {
 
     //Leer los datos de configuracion
     const leerDatos = async () => {
-        console.log('Leyendo datos...')
+        //console.log('Leyendo datos...')
 
         // Indicar que estás en proceso de carga
         setIsLoading(true);
@@ -57,7 +57,7 @@ const Index = () => {
             const docSnap = await getDoc(configRef);
 
             if (docSnap.exists()) {
-                console.log("Datos cargados en el contexto:", docSnap.data());
+                //console.log("Datos cargados en el contexto:", docSnap.data());
     
                 //Guardo los datos en el contexto
                 setInfoApp(docSnap.data());
@@ -86,7 +86,7 @@ const Index = () => {
     
             } else {
                 // docSnap.data() va a ser undefined en este caso
-                console.log("No such document!");
+                //console.log("No such document!");
     
                 setIsLoading(false);
             }

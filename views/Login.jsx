@@ -109,7 +109,7 @@ const Login = () => {
                 } alt="logo imagen" style={LoginStyles.logo} />
                 <View style={LoginStyles.form}>
 
-                    <Text fontWeight='bold' textAlign='center'>Correo Electrónico</Text>
+                    <Text fontWeight='bold' textAlign='center'>Usuario</Text>
                     {
                         loading
                             ?
@@ -118,7 +118,7 @@ const Login = () => {
                             <>
                                 <Input
 
-                                    placeholder="Email"
+                                    placeholder="correo@dominio.com"
                                     backgroundColor='#FFF'
                                     marginBottom={5}
                                     onChangeText={text => setUsuario(text)}
@@ -126,7 +126,7 @@ const Login = () => {
                                 <Text fontWeight='bold' textAlign='center'>Contraseña</Text>
                                 <Input
 
-                                    placeholder="Password"
+                                    placeholder="********"
                                     type="password"
                                     backgroundColor='#FFF'
                                     marginBottom={5}

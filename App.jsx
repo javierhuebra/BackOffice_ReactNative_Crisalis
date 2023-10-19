@@ -142,6 +142,9 @@ const App = () => {
                       title: "Home",
                       //Anular la barra de navegacion
                       //headerShown: false
+                      headerRight: () => (
+                        <NavList />
+                      ),
                     }}
                   />
 

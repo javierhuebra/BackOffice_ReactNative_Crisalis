@@ -13,6 +13,7 @@
     "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
+    "@types/react-native-vector-icons": "^6.4.16",
     "firebase": "^10.4.0",
     "native-base": "^3.4.28",
     "react": "18.2.0",
@@ -20,6 +21,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.24.0",
     "react-native-svg": "^12.1.1",
+    "react-native-vector-icons": "^10.0.0",
     "react-native-webview": "^13.6.2"
   },
   "devDependencies": {

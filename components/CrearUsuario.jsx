@@ -10,7 +10,7 @@ import { crearUsuario, modifyUsuario } from "../controllers/ABMuserController";
 
 //Con useContext le digo desde cual contexto quiero obtener los datos
 import { propContext } from "../context/propContext";
-import { err } from "react-native-svg/lib/typescript/xml";
+
 
 const CrearUsuario = ({
     openModal,
@@ -107,9 +107,9 @@ const CrearUsuario = ({
     }
     useEffect(() => {
         console.log('USE EFFECT CREAR USUARIO')
-        console.log(usuarioObj)
+        //console.log(usuarioObj)
         if (Object.keys(usuarioObj).length > 0) setUsuario(usuarioObj.usuario)
-        console.log("usuarioooooooooooooooooooooo: ", usuarioObj)
+        //console.log("usuarioooooooooooooooooooooo: ", usuarioObj)
 
     }, [usuarioObj])
 
@@ -136,10 +136,10 @@ const CrearUsuario = ({
                             :
                             <View style={CrearUsuarioStyles.form}>
                                 <View>
-                                    <Text fontWeight='bold' textAlign='center'>Correo Electrónico</Text>
+                                    <Text fontWeight='bold' textAlign='center'>Usuario</Text>
                                 </View>
                                 <Input
-                                    placeholder="Email"
+                                    placeholder="usuario@domionio.com"
                                     backgroundColor='#FFF'
                                     marginBottom={5}
                                     value={usuario}
@@ -147,7 +147,7 @@ const CrearUsuario = ({
                                 />
                                 <Text fontWeight='bold' textAlign='center'>Contraseña</Text>
                                 <Input
-                                    placeholder="Password"
+                                    placeholder="********"
                                     type="password"
                                     backgroundColor='#FFF'
                                     marginBottom={5}
@@ -164,7 +164,14 @@ const CrearUsuario = ({
                                     mb='3'
                                     onPress={() => handleCrearUsuario()}
                                 >
-                                    <Text color='white' fontWeight='bold' fontSize={18}>Crear Usuario</Text>
+                                    {
+                                        Object.keys(usuarioObj).length > 0
+                                        ?
+                                        <Text color='white' fontWeight='bold' fontSize={18}>Editar Usuario</Text>
+                                        :
+                                        <Text color='white' fontWeight='bold' fontSize={18}>Crear Usuario</Text>
+                                    }
+                                    
                                 </Button>
                                 <Button
                                     bg='red.800'

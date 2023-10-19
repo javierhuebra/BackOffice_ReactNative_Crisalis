@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Pressable } from "react-native";
 import { Text, Button, Spinner, Input } from 'native-base'
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
+
+const gear = <Icon name="gear" size={30} color="#88af3a" />;
+const dataBase = <Icon name="database" size={30} color="#7e3af2" />;
+const brief = <Icon name="briefcase" size={30} color="#0e79b2" />;
+
 const ListaNavegacion = () => {
     const [open, setOpen] = useState(false)
 
@@ -11,21 +20,25 @@ const ListaNavegacion = () => {
                 <Button height={10} justifyContent='center' mb={1} >
                     <Text fontSize={12} color='white' fontWeight='bold'>Home</Text>
                 </Button>
-                <Button height={10} justifyContent='center' width='90%' mb={1}>
-                    <Text fontSize={12} color='white' fontWeight='bold'>Usuarios</Text>
+                <Button  justifyContent='center' mb={1} bg='#efe6fd'>
+                    <View style={styles.contBtn}>
+                        {dataBase}
+                        <Text ml={3} fontSize={16} color='#7e3af2' fontWeight='bold'>ABM</Text>
+                    </View>
                 </Button>
-                <Button height={10} justifyContent='center' width='90%' mb={1}>
-                    <Text fontSize={12} color='white' fontWeight='bold'>Clientes</Text>
+                <Button  justifyContent='center' mb={1} bg='#dbeafe'>
+                    <View style={styles.contBtn}>
+                        {brief}
+                        <Text ml={3} fontSize={16} color='#0e79b2' fontWeight='bold'>Pedidos</Text>
+                    </View>
                 </Button>
-                <Button height={10} justifyContent='center' width='90%' mb={1}>
-                    <Text fontSize={12} color='white' fontWeight='bold'>Productos / Serv</Text>
+                <Button  justifyContent='center' mb={1} bg='#e9f3d4'>
+                    <View style={styles.contBtn}>
+                        {gear}
+                        <Text ml={3} fontSize={16} color='#88af3a' fontWeight='bold'>Servicios</Text>
+                    </View>
                 </Button>
-                <Button height={10} justifyContent='center' width='90%' mb={1}>
-                    <Text fontSize={12} color='white' fontWeight='bold'>Impuestos</Text>
-                </Button>
-                <Button height={10} justifyContent='center' width='90%' mb={1} >
-                    <Text fontSize={12} color='white' fontWeight='bold'>Pedidos</Text>
-                </Button>
+
             </View>
 
             <Button height={8} justifyContent='center' bg='red.400'>
@@ -41,7 +54,7 @@ const styles = StyleSheet.create({
     contenedorLista: {
         backgroundColor: 'white',
         width: '60%',
-        
+
         padding: 10,
         elevation: 3,
         borderBottomLeftRadius: 10,
@@ -59,6 +72,11 @@ const styles = StyleSheet.create({
     },
     contBotones: {
         flex: 1,
+    },
+    contBtn:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        
     }
 })
 

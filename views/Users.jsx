@@ -35,13 +35,13 @@ const Users = () => {
     const navigation = useNavigation()
 
     const handleClickedElement = async (id) => {
-        console.log(id)
+        //console.log(id)
         
         await deleteUsuario(URL, id)
         .then(() => {
             fetchUsuarios(URL, 0, setIsLoading)
             .then((data) => {
-                console.log(data)
+               //console.log(data)
 
                 data.sort((a, b) => {
                     if (a.usuario < b.usuario) {
@@ -65,13 +65,13 @@ const Users = () => {
 
     useEffect(() => {
         console.log('USE EFFECT USERS')
-        console.log(isLoged)
-        console.log(URL)
-        console.log(fetchUsuarios(URL, 0, setIsLoading).then((data) => console.log(data)))
+        //console.log(isLoged)
+        //console.log(URL)
+        //console.log(fetchUsuarios(URL, 0, setIsLoading).then((data) => console.log(data)))
 
         fetchUsuarios(URL, 0, setIsLoading)
             .then((data) => {
-                console.log(data)
+                //console.log(data)
                 
                 data.sort((a, b) => {
                     if (a.usuario < b.usuario) {

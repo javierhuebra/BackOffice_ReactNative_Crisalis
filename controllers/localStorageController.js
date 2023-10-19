@@ -18,7 +18,7 @@ export const getStorageDatos = async () => {
       const userDataSerializada = await AsyncStorage.getItem('usuario')
       if (userDataSerializada !== null) {
         const userData = JSON.parse(userDataSerializada)
-        console.log('Usuario logueado, es: ', userData)
+        //console.log('Usuario logueado, es: ', userData)
         return userData
       }else{
         console.log('El usuario no esta logueado')
