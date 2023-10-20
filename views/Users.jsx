@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 
-import { View, ScrollView, Pressable } from "react-native";
+import { View, ScrollView, Pressable, Alert } from "react-native";
 import { Text, Button, Spinner, Input, CloseIcon, ThreeDotsIcon, CheckIcon } from 'native-base'
 
 //Importo para la navegación
@@ -20,7 +20,7 @@ import ListaNavegacion from "../components/ListaNavegacion";
 import CrearUsuario from "../components/CrearUsuario";
 
 const Users = () => {
-    const { setIsLoged, isLoged } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
+    const { setIsLoged, isLoged, userLogueado } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
     const { infoApp } = useContext(propContext); //Para sacar la info de la app del context
     const { openNav } = useContext(navContext); //Para saber si esta abierto el menu de navegacion
 
@@ -36,7 +36,10 @@ const Users = () => {
 
     const handleClickedElement = async (id) => {
         //console.log(id)
-        
+        if(id === userLogueado.id){
+            Alert.alert('Error','No puede eliminar su propio usuario.')
+            return
+        }
         await deleteUsuario(URL, id)
         .then(() => {
             fetchUsuarios(URL, 0, setIsLoading)

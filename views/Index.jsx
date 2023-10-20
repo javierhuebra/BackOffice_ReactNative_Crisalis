@@ -103,7 +103,7 @@ const Index = () => {
     }, [])
 
     return (
-        <View style={GlobalStyles.container}>
+        <View style={[GlobalStyles.container, {backgroundColor:'white'}]}>
             <EndPoints
                 leerDatos={leerDatos}
                 modalVisible={modalVisible}

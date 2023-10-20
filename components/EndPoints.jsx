@@ -37,12 +37,17 @@ const EndPoints = ({ modalVisible, setModalVisible, leerDatos }) => {
                     </View>
 
                     <View style={EndPointsStyles.body}>
-                        <Text>
+                        <Text  bg='white' color='red.500'>
                             Esta aplicación se encuentra en desarrollo, por lo que la ip del servidor puede cambiar.
                         </Text>
+                        <Text fontWeight='bold'>
+                            Mediante una base de datos no relacional llamada <Text color='yellow.500'>Firebase</Text> que se encuentra en la nube online en todo momento
+                            (y actúa como microservicio) se controla la configuración inicial de la app como ip, estado, publicidades, etc.
+                        </Text>
                         <Text>
-                            Los cambios se actualizan automaticamente pero tambien puede constatar que la ip esté actualizada
-                            reliando un refetching manual.
+                            Los cambios se actualizan automaticamente pero 
+                            tambien puede constatar que la app esté actualizada  
+                            realizando un refetching manual.
                         </Text>
 
                         <View>
@@ -111,12 +116,6 @@ const EndPoints = ({ modalVisible, setModalVisible, leerDatos }) => {
                             onPress={() => leerDatos()}
                         >
                             Refetch
-                        </Button>
-                        <Button
-                            marginTop={3}
-                            onPress={() => { console.log(infoApp) }}
-                        >
-                            Console state ctx
                         </Button>
                     </View>
                 </View>

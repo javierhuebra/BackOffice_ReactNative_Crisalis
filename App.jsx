@@ -35,6 +35,7 @@ import PropsComponentProvider from './context/PropsComponentProvider';
 import SessionContextProvider from './context/SessionContextProvider';
 import NavList from './components/NavList';
 import NavContextProvider from './context/NavContextProvider';
+import Abm from './views/Abm';
 
 
 
@@ -44,38 +45,38 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
 
-  
-    const theme = extendTheme({
-      colors: {
-        // Add new color
-        primary: {
-          50: '#E3F2F9',
-          100: '#C5E4F3',
-          200: '#A2D4EC',
-          300: '#7AC1E4',
-          400: '#47A9DA',
-          500: '#0088CC',
-          600: '#007AB8',
-          700: '#006BA1',
-          800: '#005885',
-          900: '#003F5E'
-        },
-        // Redefining only one shade, rest of the color will remain same.
-        denim: {
-          100: '#0E79B2',
-          200: '#A2D4EC',
-          300: '#7AC1E4',
-          400: '#47A9DA',
-          500: '#0088CC',
-          600: '#007AB8',
-          700: '#006BA1',
-          800: '#005885',
-          900: '#003F5E'
-        }
+
+  const theme = extendTheme({
+    colors: {
+      // Add new color
+      primary: {
+        50: '#E3F2F9',
+        100: '#C5E4F3',
+        200: '#A2D4EC',
+        300: '#7AC1E4',
+        400: '#47A9DA',
+        500: '#0088CC',
+        600: '#007AB8',
+        700: '#006BA1',
+        800: '#005885',
+        900: '#003F5E'
       },
-      
-    })
-    
+      // Redefining only one shade, rest of the color will remain same.
+      denim: {
+        100: '#0E79B2',
+        200: '#A2D4EC',
+        300: '#7AC1E4',
+        400: '#47A9DA',
+        500: '#0088CC',
+        600: '#007AB8',
+        700: '#006BA1',
+        800: '#005885',
+        900: '#003F5E'
+      }
+    },
+
+  })
+
 
 
   //Este use es para ignorar un warning que me da la app con una dependencia de native base, con mas ganas lo voy a eliminar pero no es grave.
@@ -153,6 +154,17 @@ const App = () => {
                     component={Users}
                     options={{
                       title: "Usuarios",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Abm"
+                    component={Abm}
+                    options={{
+                      title: "ABM",
                       headerRight: () => (
                         <NavList />
                       ),

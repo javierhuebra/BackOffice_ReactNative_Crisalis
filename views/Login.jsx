@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { propContext, userContext } from "../context/propContext";
 
 //Importo las funciones dde async storage
-import { saveStorageDatos, deleteStorageDatos } from "../controllers/localStorageController";
+import { saveStorageDatos } from "../controllers/localStorageController";
 
 //Importo los estilos
 import LoginStyles from "../stylesheets/LoginStyles";
@@ -31,12 +31,7 @@ const Login = () => {
 
     const toast = useToast();
 
-    //Funcion para cerrar sesion
-    const cerrarSesion = () => {
-        setIsLoged(false)
-        deleteStorageDatos()
-    }
-
+    
 
     //Funcion para enviar el formulario de
     const handleSubmit = async () => {
@@ -81,10 +76,12 @@ const Login = () => {
                     if (response.status == 404) {
                         console.log(responseData)
                         Alert.alert(`Mensaje del servidor: ${responseData}`)
+                        setLoading(false)
                     } else {
                         console.log(responseData)
                         console.log(response.status)
                         Alert.alert(`Mensaje del servidor: ${responseData}`)
+                        setLoading(false)
                     }
                 }
             } catch (error) {

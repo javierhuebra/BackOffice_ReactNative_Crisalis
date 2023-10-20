@@ -27,32 +27,22 @@ const brief = <Icon name="briefcase" size={30} color="#0e79b2" />;
 const Home = () => {
     const { openNav } = useContext(navContext); //Para saber si esta abierto el menu de navegacion
 
-    const { setIsLoged } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
-
     const navigation = useNavigation()
 
-    //Funcion para cerrar sesion
-    const cerrarSesion = () => {
-        setIsLoged(false)
-        deleteStorageDatos()
-        navigation.navigate('Index')
-    }
-
+    
     useEffect(() => {
         console.log('USE EFFECT HOME')
 
     }, [])
 
     return (
-        <View style={[GlobalStyles.containerClaro, { backgroundColor: 'white' }]}>
+        <View style={[GlobalStyles.containerClaro]}>
             {openNav && <ListaNavegacion />}
-            <View style={HomeStyles.container}>
-
-                <View style={HomeStyles.contImg}>
+            <View style={HomeStyles.contImg}>
                     <Image source={require('../assets/images/logoLetras.png')
                     } alt="Alternate Text" style={HomeStyles.image} />
                 </View>
-
+            <View style={HomeStyles.container}>
 
 
                 <Text fontSize={25} fontWeight='bold' textAlign='center' mb={3}>Diseñado para equipos empresariales</Text>
@@ -62,6 +52,7 @@ const Home = () => {
                 </Text>
                 <Pressable
                     style={[HomeStyles.intBtn, {backgroundColor:'#efe6fd'}]}
+                    onPress={() => navigation.navigate('Abm')}
                 >
                     <View style={HomeStyles.contBtnInt}>
                         {dataBase}
@@ -88,20 +79,6 @@ const Home = () => {
                     <Icon name="chevron-right" size={30} color="#88af3a"/>
                 </Pressable>
 
-                <Button
-                    mb='5'
-                    borderRadius={50}
-                    onPress={() => navigation.navigate('Users')}
-                >
-                    <Text color='white' fontWeight='bold' fontSize={18}>USERS</Text>
-                </Button>
-                <Button
-                    mb='5'
-                    borderRadius={50}
-                    onPress={() => cerrarSesion()}
-                >
-                    <Text color='white' fontWeight='bold' fontSize={18}>LOG OUT</Text>
-                </Button>
             </View>
         </View>
     );

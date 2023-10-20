@@ -9,7 +9,12 @@ import CrearUsuarioStyles from "../stylesheets/CrearUsuarioStyles";
 import { crearUsuario, modifyUsuario } from "../controllers/ABMuserController";
 
 //Con useContext le digo desde cual contexto quiero obtener los datos
-import { propContext } from "../context/propContext";
+import { propContext, userContext } from "../context/propContext";
+
+//Importo las funciones de async storage
+import { deleteStorageDatos } from "../controllers/localStorageController";
+
+import { useNavigation } from "@react-navigation/native";
 
 
 const CrearUsuario = ({
@@ -23,7 +28,11 @@ const CrearUsuario = ({
 
     const URL = `${infoApp.ip}:${infoApp.port}`//Extraigo la url ya que el path esta definido en la funcion fetchusuarios
 
+    const { setIsLoged, userLogueado } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
+
     const [isLoading, setIsLoading] = useState(false) //Para saber si esta cargando
+
+    const navigation = useNavigation()
 
     const toast = useToast();
 
@@ -34,6 +43,13 @@ const CrearUsuario = ({
 
     const [errores, setErrores] = useState([])
     const [formIniciado, setFormIniciado] = useState(false)
+
+    //Funcion para cerrar sesion
+    const cerrarSesion = () => {
+        setIsLoged(false)
+        deleteStorageDatos()
+        navigation.navigate('Index')
+    }
 
     const handleCrearUsuario = async () => {
         const validationErrors = [];
@@ -73,6 +89,11 @@ const CrearUsuario = ({
                         setPassword('')
                         setUsuarioObj({})
                         setOpenModal(false)
+
+                        usuarioObj.id === userLogueado.id 
+                        &&
+                        cerrarSesion()
+                        
                     })
             } catch {
                 Alert.alert(

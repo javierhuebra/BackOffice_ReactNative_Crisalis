@@ -16,6 +16,13 @@ const GlobalStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f9ffee'
     },
+    contSecundario: {
+        flex: 1,
+        width: '100%',
+        padding: 10,
+        backgroundColor: '#FFF',
+        elevation: 5
+    },
     backColorPrimary: {
         backgroundColor: '#0E79B2'
     },

@@ -89,7 +89,7 @@ const IndexStyles = StyleSheet.create({
         
     },
     contenedorImgBtn1: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#e9f3d4',
         width: '100%',
         padding: 10,
         height: '40%',
