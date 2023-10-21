@@ -36,6 +36,12 @@ import SessionContextProvider from './context/SessionContextProvider';
 import NavList from './components/NavList';
 import NavContextProvider from './context/NavContextProvider';
 import Abm from './views/Abm';
+import Personas from './views/Personas';
+import Empresas from './views/Empresas';
+import Clientes from './views/Clientes';
+import Productos from './views/Productos';
+import Servicios from './views/Servicios';
+import Impuestos from './views/Impuestos';
 
 
 
@@ -165,6 +171,72 @@ const App = () => {
                     component={Abm}
                     options={{
                       title: "ABM",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Persons"
+                    component={Personas}
+                    options={{
+                      title: "Personas",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Companies"
+                    component={Empresas}
+                    options={{
+                      title: "Empresas",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Clients"
+                    component={Clientes}
+                    options={{
+                      title: "Clientes",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Products"
+                    component={Productos}
+                    options={{
+                      title: "Productos",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Services"
+                    component={Servicios}
+                    options={{
+                      title: "Servicios",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Taxes"
+                    component={Impuestos}
+                    options={{
+                      title: "Impuestos",
                       headerRight: () => (
                         <NavList />
                       ),

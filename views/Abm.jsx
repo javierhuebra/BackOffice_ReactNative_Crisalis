@@ -44,16 +44,16 @@ const Abm = () => {
                 </Text>
                 <View style={styles.contBtns}>
                     <ButtonIcon background='#efe6fd' icono={usuarios} texto={usuariosTexto} view='Users' />
-                    <ButtonIcon background='#efe6fd' icono={personas} texto={personasTexto} view='Users' />
-                    <ButtonIcon background='#efe6fd' icono={empresas} texto={empresasTexto} view='Users' />
+                    <ButtonIcon background='#efe6fd' icono={personas} texto={personasTexto} view='Persons' />
+                    <ButtonIcon background='#efe6fd' icono={empresas} texto={empresasTexto} view='Companies' />
                 </View>
                 <View style={styles.contBtns}>
-                    <ButtonIcon background='#efe6fd' icono={clientes} texto={clientesTexto} view='Users' />
-                    <ButtonIcon background='#efe6fd' icono={productos} texto={productosTexto} view='Users' />
-                    <ButtonIcon background='#efe6fd' icono={servicios} texto={serviciosTexto} view='Users' />
+                    <ButtonIcon background='#efe6fd' icono={clientes} texto={clientesTexto} view='Clients' />
+                    <ButtonIcon background='#efe6fd' icono={productos} texto={productosTexto} view='Products' />
+                    <ButtonIcon background='#efe6fd' icono={servicios} texto={serviciosTexto} view='Services' />
                 </View>
                 <View style={styles.contBtns}>
-                    <ButtonIcon background='#efe6fd' icono={impuestos} texto={impuestosTexto} view='Users' />
+                    <ButtonIcon background='#efe6fd' icono={impuestos} texto={impuestosTexto} view='Taxes' />
                 </View>
             </View>
         </View>
