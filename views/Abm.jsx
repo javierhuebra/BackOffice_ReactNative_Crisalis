@@ -32,32 +32,34 @@ const Abm = () => {
     const serviciosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Servicios</Text>;
     const impuestosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Impuestos</Text>;
     return (
-        <View style={GlobalStyles.containerClaro}>
+        <>
             {openNav && <ListaNavegacion />}
-            <View >
-                <Text fontSize={25} fontWeight='bold' textAlign='center' mb={1}>Altas, Bajas y Modificaciones</Text>
+            <View style={GlobalStyles.containerClaro}>
 
-            </View>
-            <View style={GlobalStyles.contSecundario}>
-                <Text fontSize={16} textAlign='center' color='gray.400' mb={3}>
-                    Espacio para modificaciones generales de los datos del sistema.
-                </Text>
-                <View style={styles.contBtns}>
-                    <ButtonIcon background='#efe6fd' icono={usuarios} texto={usuariosTexto} view='Users' />
-                    <ButtonIcon background='#efe6fd' icono={personas} texto={personasTexto} view='Persons' />
-                    <ButtonIcon background='#efe6fd' icono={empresas} texto={empresasTexto} view='Companies' />
-                </View>
-                <View style={styles.contBtns}>
-                    <ButtonIcon background='#efe6fd' icono={clientes} texto={clientesTexto} view='Clients' />
-                    <ButtonIcon background='#efe6fd' icono={productos} texto={productosTexto} view='Products' />
-                    <ButtonIcon background='#efe6fd' icono={servicios} texto={serviciosTexto} view='Services' />
-                </View>
-                <View style={styles.contBtns}>
-                    <ButtonIcon background='#efe6fd' icono={impuestos} texto={impuestosTexto} view='Taxes' />
-                </View>
-            </View>
-        </View>
+                <View >
+                    <Text fontSize={25} fontWeight='bold' textAlign='center' mb={1}>Altas, Bajas y Modificaciones</Text>
 
+                </View>
+                <View style={GlobalStyles.contSecundario}>
+                    <Text fontSize={16} textAlign='center' color='gray.400' mb={3}>
+                        Espacio para modificaciones generales de los datos del sistema.
+                    </Text>
+                    <View style={styles.contBtns}>
+                        <ButtonIcon background='#efe6fd' icono={usuarios} texto={usuariosTexto} view='Users' />
+                        <ButtonIcon background='#efe6fd' icono={personas} texto={personasTexto} view='Persons' />
+                        <ButtonIcon background='#efe6fd' icono={empresas} texto={empresasTexto} view='Companies' />
+                    </View>
+                    <View style={styles.contBtns}>
+                        <ButtonIcon background='#efe6fd' icono={clientes} texto={clientesTexto} view='Clients' />
+                        <ButtonIcon background='#efe6fd' icono={productos} texto={productosTexto} view='Products' />
+                        <ButtonIcon background='#efe6fd' icono={servicios} texto={serviciosTexto} view='Services' />
+                    </View>
+                    <View style={styles.contBtns}>
+                        <ButtonIcon background='#efe6fd' icono={impuestos} texto={impuestosTexto} view='Taxes' />
+                    </View>
+                </View>
+            </View>
+        </>
     );
 }
 const styles = StyleSheet.create({

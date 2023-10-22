@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input, Text, Button, useToast, ScrollView, Center } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-import { Image, StyleSheet, View} from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
 //Importo los estilos globales
 import GlobalStyles from "../stylesheets/GlobalStyles";
@@ -11,10 +11,14 @@ const URL = 'http://192.168.0.109:8080/api/login'
 
 
 const Info = () => {
-   
+
     return (
         <View style={GlobalStyles.container}>
             <ScrollView>
+                <Center>
+                    <Image source={require('../assets/images/logoLetras.png')
+                    } alt="Alternate Text" style={styles.imagen} />
+                </Center>
                 <View style={styles.contScroll}>
                     <Text fontSize="xl" mb="2">Bienvenido a Crisalis</Text>
                     <Text mb="2">
@@ -40,25 +44,25 @@ const Info = () => {
                         La integración es rápida y sin complicaciones.
                     </Text>
                 </View>
-
-                <Center>
-                    <Image source={require('../assets/images/logoLetras.png')   
-                    } alt="Alternate Text" style={{width: 370, height: 100, opacity:0.5}}/>
-                </Center>
-
             </ScrollView>
         </View>
     );
 }
 const styles = StyleSheet.create({
-    contScroll:{
-        paddingLeft: 15, 
-        paddingTop: 15, 
+    contScroll: {
+        paddingLeft: 15,
+        paddingTop: 15,
         paddingRight: 15,
-        backgroundColor:'white',
+        backgroundColor: 'white',
         marginVertical: 10,
-        borderRadius: 10,
+
         elevation: 2,
+    },
+    imagen: {
+        width: 370,
+        height: 100,
+        opacity: 0.6,
+        marginTop: 10
     }
 })
 export default Info;

@@ -28,6 +28,8 @@ import { db } from "../firebase/firebase";
 //Con useContext le digo desde cual contexto quiero obtener los datos
 import { propContext, userContext } from "../context/propContext";
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+const engines = <Icon name="gears" size={40} color="#88af3a" />;
 
 const Index = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -114,10 +116,7 @@ const Index = () => {
                     onPress={() => setModalVisible(true)}
                     style={IndexStyles.pressableEndpoints}
                 >
-                    <Image
-                        style={IndexStyles.engineeIcon}
-                        source={require('../assets/images/engine.png')}
-                    />
+                    {engines}
                 </Pressable>
             </View>
 

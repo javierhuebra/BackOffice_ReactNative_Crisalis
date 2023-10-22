@@ -58,11 +58,10 @@ const IndexStyles = StyleSheet.create({
     pressableEndpoints: {
         height: "100%",
         width: "100%",
-        backgroundColor: 'white',
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        elevation: 5,
+        
     },
     engineeIcon: {
         height: 40,

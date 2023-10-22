@@ -15,9 +15,18 @@ import GlobalStyles from "../stylesheets/GlobalStyles";
 //Importo la funcion de fetchusuarios
 import { fetchUsuarios, deleteUsuario } from "../controllers/ABMuserController";
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import UsersStyles from "../stylesheets/UsersStyles";
 import ListaNavegacion from "../components/ListaNavegacion";
 import CrearUsuario from "../components/CrearUsuario";
+
+
+const close = <Icon name="close" size={30} color="#af3a3a" />;
+const pencil = <Icon name="pencil" size={30} color="#cebf37" />;
+const check = <Icon name="check" size={30} color="#88af3a" />;
+const user = <Icon name="user" size={20} color="#ffffff" />;
+
 
 const Users = () => {
     const { setIsLoged, isLoged, userLogueado } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
@@ -30,35 +39,37 @@ const Users = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [openModal, setOpenModal] = useState(false)
 
+    const [searchTerm, setSearchTerm] = useState('')//Para buscar en la tabla de usuarios
+
     const [usuario, setUsuario] = useState({})
 
     const navigation = useNavigation()
 
     const handleClickedElement = async (id) => {
         //console.log(id)
-        if(id === userLogueado.id){
-            Alert.alert('Error','No puede eliminar su propio usuario.')
+        if (id === userLogueado.id) {
+            Alert.alert('Error', 'No puede eliminar su propio usuario.')
             return
         }
         await deleteUsuario(URL, id)
-        .then(() => {
-            fetchUsuarios(URL, 0, setIsLoading)
-            .then((data) => {
-               //console.log(data)
+            .then(() => {
+                fetchUsuarios(URL, 0, setIsLoading)
+                    .then((data) => {
+                        //console.log(data)
 
-                data.sort((a, b) => {
-                    if (a.usuario < b.usuario) {
-                      return -1;
-                    }
-                    if (a.usuario > b.usuario) {
-                      return 1;
-                    }
-                    return 0;
-                  });
+                        data.sort((a, b) => {
+                            if (a.usuario < b.usuario) {
+                                return -1;
+                            }
+                            if (a.usuario > b.usuario) {
+                                return 1;
+                            }
+                            return 0;
+                        });
 
-                setUsuarios(data)
+                        setUsuarios(data)
+                    })
             })
-        })     
     }
 
     const handleEditElement = (objetoUsuario) => {
@@ -75,16 +86,16 @@ const Users = () => {
         fetchUsuarios(URL, 0, setIsLoading)
             .then((data) => {
                 //console.log(data)
-                
+
                 data.sort((a, b) => {
                     if (a.usuario < b.usuario) {
-                      return -1;
+                        return -1;
                     }
                     if (a.usuario > b.usuario) {
-                      return 1;
+                        return 1;
                     }
                     return 0;
-                  });
+                });
 
                 setUsuarios(data)
             })
@@ -93,94 +104,106 @@ const Users = () => {
     }, [openModal])
 
     return (
-        <View style={GlobalStyles.containerClaro}>
-
+        <>
             {openNav && <ListaNavegacion />}
-            <CrearUsuario
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-                usuario = {usuario}
-                setUsuario = {setUsuario}
-            />
-            <View style={UsersStyles.contenido}>
-                <View style={UsersStyles.contHeader}>
-                    <View style={UsersStyles.barraBusqueda}>
-                        <Input variant="rounded" placeholder="Buscar" />
-                    </View>
-                    <Button
-                        width='35%'
-                        bg='denim.100'
-                        onPress={() => setOpenModal(true)}
-                    >
-                        <Text fontWeight='bold' color='white'>Crear Usuario</Text>
-                    </Button>
-                </View>
-                <ScrollView style={UsersStyles.scrollUsers}>
-                    <View style={UsersStyles.tabla}>
-                        <View style={[UsersStyles.fila, UsersStyles.filaHeader]}>
-                            <View style={[UsersStyles.col, UsersStyles.colMail]}>
-                                <Text fontWeight='bold'>Usuario</Text>
-                            </View>
-                            <View style={UsersStyles.col}>
-                                <Text fontWeight='bold'>Estado</Text>
-                            </View>
-                            <View style={UsersStyles.col}>
-                                <Text fontWeight='bold'>Acciones</Text>
-                            </View>
+            <View style={GlobalStyles.containerClaro}>
+
+                <CrearUsuario
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    usuario={usuario}
+                    setUsuario={setUsuario}
+                />
+                <View style={UsersStyles.contenido}>
+                    <View style={UsersStyles.contHeader}>
+                        <View style={UsersStyles.barraBusqueda}>
+                            <Input
+                                variant="rounded"
+                                placeholder="Buscar por usuario"
+                                value={searchTerm}
+                                onChangeText={text => { setSearchTerm(text) }}
+                            />
                         </View>
-
-                        {
-                            isLoading
-                                ?
-                                <Spinner />
-                                :
-                                <>
-                                    {
-                                        usuarios.map((usuario) => (
-                                            <View key={usuario.id} style={UsersStyles.fila}>
-                                                <View style={[UsersStyles.col, UsersStyles.colMail]}>
-                                                    <Text>{usuario.usuario}</Text>
-                                                </View>
-                                                <View style={UsersStyles.col}>
-                                                    {
-                                                        usuario.eliminado
-                                                            ?
-                                                            <Text fontWeight='bold' color='red.500'>Inactivo</Text>
-                                                            :
-                                                            <Text fontWeight='bold' color='green.500'>Activo</Text>
-                                                    }
-                                                </View>
-                                                <View style={[UsersStyles.col, UsersStyles.colAcciones]}>
-                                                    <Pressable
-                                                        style={UsersStyles.accionContainer}
-                                                        onPress={() => handleClickedElement(usuario.id)}
-                                                    >
-
-                                                        {
-                                                            usuario.eliminado
-                                                                ?
-                                                                <Text fontSize='18'>✔️</Text>
-                                                                :
-                                                                <Text fontSize='18'>❌</Text>
-                                                        }
-
-                                                    </Pressable>
-                                                    <Pressable style={UsersStyles.accionContainer} onPress={() => handleEditElement(usuario)}>
-                                                        <Text fontSize='18'>🖍️</Text>
-
-                                                    </Pressable>
-                                                </View>
-                                            </View>
-
-                                        ))
-                                    }
-                                </>
-                        }
-
+                        <Button
+                            width='40%'
+                            bg='denim.100'
+                            onPress={() => setOpenModal(true)}
+                        >
+                            <Text fontWeight='bold' color='white'>{user} Crear Usuario</Text>
+                        </Button>
                     </View>
-                </ScrollView>
+                    <ScrollView style={UsersStyles.scrollUsers}>
+                        <View style={UsersStyles.tabla}>
+                            <View style={[UsersStyles.fila, UsersStyles.filaHeader]}>
+                                <View style={[UsersStyles.col, UsersStyles.colMail]}>
+                                    <Text fontWeight='bold'>Usuario</Text>
+                                </View>
+                                <View style={UsersStyles.col}>
+                                    <Text fontWeight='bold'>Estado</Text>
+                                </View>
+                                <View style={UsersStyles.col}>
+                                    <Text fontWeight='bold'>Acciones</Text>
+                                </View>
+                            </View>
+
+                            {
+                                isLoading
+                                    ?
+                                    <Spinner />
+                                    :
+                                    <>
+                                        {
+
+                                            usuarios
+                                                .filter((usuario) =>
+                                                    usuario.usuario.toLowerCase().includes(searchTerm.toLowerCase())
+                                                ).map((usuario) => (
+                                                    <View key={usuario.id} style={UsersStyles.fila}>
+                                                        <View style={[UsersStyles.col, UsersStyles.colMail]}>
+                                                            <Text>{usuario.usuario}</Text>
+                                                        </View>
+                                                        <View style={UsersStyles.col}>
+                                                            {
+                                                                usuario.eliminado
+                                                                    ?
+                                                                    <Text fontWeight='bold' color='red.500'>Inactivo</Text>
+                                                                    :
+                                                                    <Text fontWeight='bold' color='green.500'>Activo</Text>
+                                                            }
+                                                        </View>
+                                                        <View style={[UsersStyles.col, UsersStyles.colAcciones]}>
+                                                            <Pressable
+                                                                style={UsersStyles.accionContainer}
+                                                                onPress={() => handleClickedElement(usuario.id)}
+                                                            >
+
+                                                                {
+                                                                    usuario.eliminado
+                                                                        ?
+                                                                        <>{check}</>
+                                                                        :
+                                                                        <>{close}</>
+                                                                }
+
+                                                            </Pressable>
+                                                            <Pressable style={UsersStyles.accionContainer} onPress={() => handleEditElement(usuario)}>
+                                                                <>{pencil}</>
+
+                                                            </Pressable>
+                                                        </View>
+                                                    </View>
+
+
+                                                ))
+                                        }
+                                    </>
+                            }
+
+                        </View>
+                    </ScrollView>
+                </View>
             </View>
-        </View>
+        </>
     );
 }
 

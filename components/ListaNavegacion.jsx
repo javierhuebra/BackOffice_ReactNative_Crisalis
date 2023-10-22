@@ -33,71 +33,77 @@ const ListaNavegacion = () => {
     }
 
     return (
-        <View style={styles.contenedorLista}>
+        <Pressable style={styles.contenedorLista} onPress={() => setOpenNav(false)}>
+            <View style={styles.subContainer}>
+                <View style={styles.contBotones}>
+                    <Button
+                        justifyContent='flex-start' pl={10} mb={1} bg='#d9eedc'
+                        onPress={() => {
+                            setOpenNav(false)
+                            navigation.navigate('Home')
+                        }}
+                    >
+                        <View style={styles.contBtn}>
+                            {home}
+                            <Text ml={3} fontSize={16} color='#43880a' fontWeight='bold'>Home</Text>
+                        </View>
+                    </Button>
+                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#efe6fd'
+                        onPress={() => {
+                            setOpenNav(false)
+                            navigation.navigate('Abm')
+                        }}
+                    >
+                        <View style={styles.contBtn}>
+                            {dataBase}
+                            <Text ml={3} fontSize={16} color='#7e3af2' fontWeight='bold'>ABM</Text>
+                        </View>
+                    </Button>
+                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#dbeafe'>
+                        <View style={styles.contBtn}>
+                            {brief}
+                            <Text ml={3} fontSize={16} color='#0e79b2' fontWeight='bold'>Pedidos</Text>
+                        </View>
+                    </Button>
+                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#e9f3d4'>
+                        <View style={styles.contBtn}>
+                            {gear}
+                            <Text ml={3} fontSize={16} color='#88af3a' fontWeight='bold'>Servicios</Text>
+                        </View>
+                    </Button>
 
-            <View style={styles.contBotones}>
-                <Button
-                    justifyContent='center' mb={1} bg='#d9eedc'
-                    onPress={() => {
-                        setOpenNav(false)
-                        navigation.navigate('Home')
-                    }}
-                >
-                    <View style={styles.contBtn}>
-                        {home}
-                        <Text ml={3} fontSize={16} color='#43880a' fontWeight='bold'>Home</Text>
-                    </View>
-                </Button>
-                <Button justifyContent='center' mb={1} bg='#efe6fd'
-                    onPress={() => {
-                        setOpenNav(false)
-                        navigation.navigate('Abm')
-                    }}
-                >
-                    <View style={styles.contBtn}>
-                        {dataBase}
-                        <Text ml={3} fontSize={16} color='#7e3af2' fontWeight='bold'>ABM</Text>
-                    </View>
-                </Button>
-                <Button justifyContent='center' mb={1} bg='#dbeafe'>
-                    <View style={styles.contBtn}>
-                        {brief}
-                        <Text ml={3} fontSize={16} color='#0e79b2' fontWeight='bold'>Pedidos</Text>
-                    </View>
-                </Button>
-                <Button justifyContent='center' mb={1} bg='#e9f3d4'>
-                    <View style={styles.contBtn}>
-                        {gear}
-                        <Text ml={3} fontSize={16} color='#88af3a' fontWeight='bold'>Servicios</Text>
-                    </View>
-                </Button>
-
+                </View>
+                <View style={styles.contSession}>
+                    <Text color='gray.500' textAlign='center' fontSize={18} mb={1}>{userLogueado.usuario}</Text>
+                    <Button
+                        height={8} justifyContent='center' bg='red.400'
+                        onPress={() => cerrarSesion()}
+                    >
+                        <Text fontSize={10} color='white' fontWeight='bold'>Cerrar Sesión</Text>
+                    </Button>
+                </View>
             </View>
-            <View style={styles.contSession}>
-                <Text color='gray.500' textAlign='center' fontSize={18} mb={1}>{userLogueado.usuario}</Text>
-                <Button
-                    height={8} justifyContent='center' bg='red.400'
-                    onPress={() => cerrarSesion()}
-                >
-                    <Text fontSize={10} color='white' fontWeight='bold'>Cerrar Sesión</Text>
-                </Button>
-            </View>
-
-        </View>
+        </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
     contenedorLista: {
-        backgroundColor: 'white',
-        width: '60%',
-
-        padding: 10,
-        elevation: 3,
-        borderBottomLeftRadius: 10,
+        
+        width: '100%',
+        height: '100%',
         position: 'absolute',
         right: 0,
         zIndex: 100,
+        alignItems: 'flex-end',
+    },
+    subContainer: {
+        width: '60%',
+        height: 320,
+        padding: 10,
+        borderBottomLeftRadius: 10,
+        backgroundColor: 'white',
+        elevation: 3,
     },
     btnCerrarSesion: {
         width: '100%',
@@ -109,6 +115,7 @@ const styles = StyleSheet.create({
     },
     contBotones: {
         flex: 1,
+        
     },
     contBtn: {
         flexDirection: 'row',

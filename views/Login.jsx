@@ -75,12 +75,13 @@ const Login = () => {
                     const responseData = await response.text()//Si la respuesta no es ok me manda un string, por eso no se puede parsear a json
                     if (response.status == 404) {
                         console.log(responseData)
-                        Alert.alert(`Mensaje del servidor: ${responseData}`)
+                        //Alert.alert('Error:', `${responseData}`)
+                        Alert.alert(`Error ${response.status}`, `Credenciales inválidas`)
                         setLoading(false)
                     } else {
-                        console.log(responseData)
+                        //console.log(responseData)
                         console.log(response.status)
-                        Alert.alert(`Mensaje del servidor: ${responseData}`)
+                        Alert.alert(`Error ${response.status}`, `Usuario no disponible`)
                         setLoading(false)
                     }
                 }
