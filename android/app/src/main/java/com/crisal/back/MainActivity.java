@@ -1,4 +1,4 @@
-package com.proyectoconlogin;
+package com.crisal.back;
 
 import android.os.Bundle;
 
@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "proyectoconlogin";
+    return "Crisalis Backoffice";
   }
 
   /**

@@ -1,4 +1,4 @@
-package com.proyectoconlogin;
+package com.crisal.back;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

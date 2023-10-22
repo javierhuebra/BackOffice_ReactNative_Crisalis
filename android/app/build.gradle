@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.proyectoconlogin"
+    namespace "com.crisal.back"
     defaultConfig {
-        applicationId "com.proyectoconlogin"
+        applicationId "com.crisal.back"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
