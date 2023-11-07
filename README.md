@@ -2,11 +2,20 @@
 
 ![Alt text](assets/images/logoColor.png)
 
-## Fue desarrollado con una api en Spring Boot.
+## Se conecta con una api desarrollada en Spring Boot.
+<div>
+  <img src="./capturas/img7.jpeg" width="200px"/>
+  <img src="./capturas/img4.jpeg" width="200px"/>
+  <img src="./capturas/img6.jpeg" width="200px"/>
+  <img src="./capturas/img2.jpeg" width="200px"/>
+  <img src="./capturas/img1.jpeg" width="200px"/>
+  <img src="./capturas/img3.jpeg" width="200px"/>
+  <img src="./capturas/img5.jpeg" width="200px"/>
+</div>
 
 
 
-
+### Especificaciones de react navigation para tener en cuenta
 
 REACT NAVIGATION:
 

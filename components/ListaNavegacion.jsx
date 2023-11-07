@@ -74,7 +74,7 @@ const ListaNavegacion = () => {
 
                 </View>
                 <View style={styles.contSession}>
-                    <Text color='gray.500' textAlign='center' fontSize={18} mb={1}>{userLogueado.usuario}</Text>
+                    <Text color='gray.500' textAlign='center' fontSize={18} mb={1}>{userLogueado.username}</Text>
                     <Button
                         height={8} justifyContent='center' bg='red.400'
                         onPress={() => cerrarSesion()}

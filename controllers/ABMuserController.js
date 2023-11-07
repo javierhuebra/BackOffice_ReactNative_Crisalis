@@ -1,9 +1,16 @@
 
-export const fetchUsuarios = async (url, id, setIsLoadingCallback) => {
+export const fetchUsuarios = async (url, id, setIsLoadingCallback, usuarioLogeado) => {
     try {
         setIsLoadingCallback(true);
 
-        const response = await fetch(`${url}/api/usuarios${(id > 0) ? `/${id}` : ""}`);
+        const response = await fetch(`${url}/api/usuarios${(id > 0) ? `/${id}` : ""}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${usuarioLogeado.token}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         const data = await response.json();
 
         setIsLoadingCallback(false);
@@ -13,13 +20,16 @@ export const fetchUsuarios = async (url, id, setIsLoadingCallback) => {
     }
 };
 
-export const crearUsuario = async (url, usuario, password, setIsLoadingCallback) => {
+export const crearUsuario = async (url, usuario, password, setIsLoadingCallback, usuarioLogeado) => {
     try {
         setIsLoadingCallback(true);
         const response = await fetch(`${url}/api/usuarios`, {
             method: 'POST',
             body: JSON.stringify({ usuario, password }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                Authorization: `Bearer ${usuarioLogeado.token}`,
+                "Content-Type": "application/json",
+            },
         })
         setIsLoadingCallback(false);
         return response;
@@ -30,11 +40,15 @@ export const crearUsuario = async (url, usuario, password, setIsLoadingCallback)
     }
 }
 
-export const deleteUsuario = async (url, id) => {
+export const deleteUsuario = async (url, id, usuarioLogeado) => {
     try {
 
         await fetch(`${url}/api/usuarios/${id}`, {
-            method: 'PATCH'
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${usuarioLogeado.token}`,
+                "Content-Type": "application/json",
+            },
         })
             .then(resp => {
 
@@ -48,13 +62,16 @@ export const deleteUsuario = async (url, id) => {
     }
 }
 
-export const modifyUsuario = async (url, id, usuario, password, setIsLoadingCallback) => {
+export const modifyUsuario = async (url, id, usuario, password, setIsLoadingCallback, usuarioLogeado) => {
     try {
         setIsLoadingCallback(true);
         await fetch(`${url}/api/usuarios/${id}`, {
             method: 'POST',
             body: JSON.stringify({ usuario, password }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                Authorization: `Bearer ${usuarioLogeado.token}`,
+                "Content-Type": "application/json",
+            },
         })
             .then(resp => {
                 setIsLoadingCallback(false);

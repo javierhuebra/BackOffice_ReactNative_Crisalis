@@ -51,9 +51,9 @@ const Users = () => {
             Alert.alert('Error', 'No puede eliminar su propio usuario.')
             return
         }
-        await deleteUsuario(URL, id)
+        await deleteUsuario(URL, id, userLogueado)
             .then(() => {
-                fetchUsuarios(URL, 0, setIsLoading)
+                fetchUsuarios(URL, 0, setIsLoading, userLogueado)
                     .then((data) => {
                         //console.log(data)
 
@@ -83,7 +83,7 @@ const Users = () => {
         //console.log(URL)
         //console.log(fetchUsuarios(URL, 0, setIsLoading).then((data) => console.log(data)))
 
-        fetchUsuarios(URL, 0, setIsLoading)
+        fetchUsuarios(URL, 0, setIsLoading, userLogueado)
             .then((data) => {
                 //console.log(data)
 

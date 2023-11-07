@@ -123,7 +123,7 @@ const Index = () => {
             {
                 isLoged &&
                 <View style={IndexStyles.contUserLogueado}>
-                    <Text fontSize='xl'>{userLogueado.usuario}</Text>
+                    <Text fontSize='xl'>{userLogueado.username}</Text>
                 </View>
             }
 

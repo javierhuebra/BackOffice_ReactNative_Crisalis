@@ -80,7 +80,7 @@ const CrearUsuario = ({
 
         if (Object.keys(usuarioObj).length > 0) {
             try {
-                await modifyUsuario(URL, usuarioObj.id, usuario, password, setIsLoading)
+                await modifyUsuario(URL, usuarioObj.id, usuario, password, setIsLoading, userLogueado)
                     .then(() => {
 
                         toast.show({ description: "¡Usuario modificado!" })
@@ -105,7 +105,7 @@ const CrearUsuario = ({
 
 
         } else {
-            const response = await crearUsuario(URL, usuario, password, setIsLoading)
+            const response = await crearUsuario(URL, usuario, password, setIsLoading, userLogueado)
                 .then((data) => {
                     console.log("data: ", data.status)
                     if (data.ok) {
