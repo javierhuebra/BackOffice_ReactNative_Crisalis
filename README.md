@@ -2,6 +2,8 @@
 
 ![Alt text](assets/images/logoColor.png)
 
+### Este proyecto reutiliza la tecnología utilizada para el front end para poder crear una extensión multiplataforma de la aplicación principal (web).
+
 ## Se conecta con una api desarrollada en Spring Boot.
 <div>
   <img src="./capturas/img7.jpeg" width="200px"/>
