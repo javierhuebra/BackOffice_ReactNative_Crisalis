@@ -10,7 +10,7 @@
 
 ### La inserción de este modelo de aplicación en el proyecto favorece el trabajo de campo por parte de los técnicos u operarios que deban realizar visitas físicas en las instalaciones donde se proveen los servicios y le proporciona valor agregado al producto al brindar un servicio mas abarcativo a nuestro cliente.
 
-### Sprint 1 (DONE)
+## Sprint 1 (DONE)
 
 <div>
   <img src="./capturas/img7.jpeg" width="200px"/>
@@ -26,9 +26,11 @@
 </div>
 
 
-### Sprint 2 (WORK IN PROGRESS) status: en crud empresas
-<img src="./capturas/img12.jpeg" width="200px"/>
-<img src="./capturas/img11.jpeg" width="200px"/>
+## Sprint 2 (WORK IN PROGRESS) status: en crud empresas
+<div>
+  <img src="./capturas/img12.jpeg" width="200px"/>
+  <img src="./capturas/img11.jpeg" width="200px"/>
+</div>
 
 ## Sprint 3 (PENDING)
 
