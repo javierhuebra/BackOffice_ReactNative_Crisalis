@@ -188,9 +188,9 @@ const CrearUsuario = ({
                                     {
                                         Object.keys(usuarioObj).length > 0
                                         ?
-                                        <Text color='white' fontWeight='bold' fontSize={18}>Editar Usuario</Text>
+                                        <Text color='white' fontWeight='bold' fontSize={18}>EDITAR USUARIO</Text>
                                         :
-                                        <Text color='white' fontWeight='bold' fontSize={18}>Crear Usuario</Text>
+                                        <Text color='white' fontWeight='bold' fontSize={18}>CREAR USUARIO</Text>
                                     }
                                     
                                 </Button>
@@ -205,7 +205,7 @@ const CrearUsuario = ({
                                     }
                                     }
                                 >
-                                    <Text color='white' fontWeight='bold' fontSize={18}>Cancelar</Text>
+                                    <Text color='white' fontWeight='bold' fontSize={18}>CANCELAR</Text>
                                 </Button>
                             </View>
                     }

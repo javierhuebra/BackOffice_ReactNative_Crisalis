@@ -41,10 +41,9 @@ const UsersStyles = StyleSheet.create({
    },
    colAcciones: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'center',
       paddingRight: 5,
-      
    },
    accionContainer: {
       width: 40,
