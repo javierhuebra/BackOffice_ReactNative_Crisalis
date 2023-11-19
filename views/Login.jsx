@@ -59,8 +59,9 @@ const Login = () => {
                     setLoading(false)
                     console.log(responseData)
 
-                    toast.show({ description: `¡Autenticado correctamente ${responseData.usuario}!` })
-
+                    toast.show({ description: `¡Autenticado correctamente ${responseData.username}!` })
+                    
+                    
 
                     saveStorageDatos(responseData)//Guardo los datos en el storage
                     setUserLogueado(responseData)//Guardo los datos en el contexto

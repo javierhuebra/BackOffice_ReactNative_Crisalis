@@ -73,6 +73,7 @@ const Home = () => {
                     </Pressable>
                     <Pressable
                         style={[HomeStyles.intBtn, { backgroundColor: '#e9f3d4' }]}
+                        onPress={() => navigation.navigate('Services')}
                     >
                         <View style={HomeStyles.contBtnInt}>
                             {gear}

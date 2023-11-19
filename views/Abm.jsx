@@ -21,15 +21,15 @@ const Abm = () => {
     const empresas = <Icon name="building" size={40} color="#7e3af2" />;
     const clientes = <Icon name="laptop" size={40} color="#7e3af2" />;
     const productos = <Icon name="diamond" size={40} color="#7e3af2" />;
-    const servicios = <Icon name="paper-plane" size={40} color="#7e3af2" />;
+    //const servicios = <Icon name="paper-plane" size={40} color="#7e3af2" />;
     const impuestos = <Icon name="rocket" size={40} color="#7e3af2" />;
 
     const usuariosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Usuarios</Text>;
     const personasTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Personas</Text>;
     const empresasTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Empresas</Text>;
     const clientesTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Clientes</Text>;
-    const productosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Productos</Text>;
-    const serviciosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Servicios</Text>;
+    const productosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Prod/Serv</Text>;
+    //const serviciosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Servicios</Text>;
     const impuestosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Impuestos</Text>;
     return (
         <>
@@ -52,11 +52,9 @@ const Abm = () => {
                     <View style={styles.contBtns}>
                         <ButtonIcon background='#efe6fd' icono={clientes} texto={clientesTexto} view='Clients' />
                         <ButtonIcon background='#efe6fd' icono={productos} texto={productosTexto} view='Products' />
-                        <ButtonIcon background='#efe6fd' icono={servicios} texto={serviciosTexto} view='Services' />
-                    </View>
-                    <View style={styles.contBtns}>
                         <ButtonIcon background='#efe6fd' icono={impuestos} texto={impuestosTexto} view='Taxes' />
                     </View>
+                    
                 </View>
             </View>
         </>

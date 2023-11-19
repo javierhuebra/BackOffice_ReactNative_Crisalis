@@ -65,7 +65,12 @@ const ListaNavegacion = () => {
                             <Text ml={3} fontSize={16} color='#0e79b2' fontWeight='bold'>Pedidos</Text>
                         </View>
                     </Button>
-                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#e9f3d4'>
+                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#e9f3d4'
+                        onPress={() => {
+                            setOpenNav(false)
+                            navigation.navigate('Services')
+                        }}
+                    >
                         <View style={styles.contBtn}>
                             {gear}
                             <Text ml={3} fontSize={16} color='#88af3a' fontWeight='bold'>Servicios</Text>

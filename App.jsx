@@ -42,6 +42,7 @@ import Clientes from './views/Clientes';
 import Productos from './views/Productos';
 import Servicios from './views/Servicios';
 import Impuestos from './views/Impuestos';
+import Activaciones from './views/Activaciones';
 
 
 
@@ -222,6 +223,19 @@ const App = () => {
                   />
 
                   <Stack.Screen
+                    name="Taxes"
+                    component={Impuestos}
+                    options={{
+                      title: "Impuestos",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  {/* Aca van las rutas de servicios */}
+
+                  <Stack.Screen
                     name="Services"
                     component={Servicios}
                     options={{
@@ -233,10 +247,10 @@ const App = () => {
                   />
 
                   <Stack.Screen
-                    name="Taxes"
-                    component={Impuestos}
+                    name="Activations"
+                    component={Activaciones}
                     options={{
-                      title: "Impuestos",
+                      title: "Activaciones",
                       headerRight: () => (
                         <NavList />
                       ),

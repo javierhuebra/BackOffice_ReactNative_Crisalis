@@ -18,7 +18,7 @@ const Productos = () => {
             <View style={GlobalStyles.containerClaro}>
                 
                 <View style={GlobalStyles.contSecundario}>
-                    <Text>Productos</Text>
+                    <Text>Productos/Servicios</Text>
                 </View>
             </View>
         </>
