@@ -87,7 +87,7 @@ const Activaciones = () => {
                                     <>
                                         {
                                             suscripciones.map((suscripcion) => (
-                                                <View key={suscripcion.id} style={UsersStyles.fila}>
+                                                <View key={suscripcion.id} style={[UsersStyles.fila,{paddingBottom:4}]}>
                                                     <View style={UsersStyles.col}>
                                                         <Text fontSize='10'>{suscripcion.fecha}</Text>
                                                     </View>
@@ -111,17 +111,15 @@ const Activaciones = () => {
 
                                                     </View>
                                                     <View style={UsersStyles.col}>
-                                                        {
-                                                            suscripcion.estado
-                                                                ?
-                                                                <Pressable>
-                                                                    <Text fontSize='8' color='green.500'>DESACTIVAR</Text>
-                                                                </Pressable>
-                                                                :
-                                                                <Pressable>
-                                                                    <Text fontSize='10' color='red.500'>ACTIVAR</Text>
-                                                                </Pressable>
-                                                        }
+                                                        <Pressable 
+                                                        style={{backgroundColor:'#499ee3',
+                                                        width:'100%', 
+                                                        height:'75%', 
+                                                        borderRadius: 8, 
+                                                        justifyContent:'center',
+                                                        alignItems:'center'}}>
+                                                            <Text fontSize='14' color='white'>Ver</Text>
+                                                        </Pressable>
                                                     </View>
 
                                                 </View>
