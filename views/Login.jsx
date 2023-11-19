@@ -3,8 +3,7 @@ import { View, Alert, Image } from "react-native";
 import { Input, Text, Button, useToast, Spinner } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
-//Para decodificar base64
-import { atob } from 'react-native-quick-base64';
+
 
 //Con useContext le digo desde cual contexto quiero obtener los datos
 import { propContext, userContext } from "../context/propContext";
@@ -32,6 +31,34 @@ const Login = () => {
     const navigation = useNavigation()//Para moverse entre pantallas
 
     const toast = useToast();
+
+    const atob = (input) => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      
+        const str = input.replace(/=+$/, '');
+        let output = '';
+      
+        if (str.length % 4 === 1) {
+          throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+        }
+      
+        for (
+          // initialize result and counters
+          let bc = 0, bs, buffer, idx = 0;
+          // get next character
+          (buffer = str.charAt(idx++));
+          // character found in table? initialize bit storage and add its ascii value;
+          ~buffer &&
+          ((bs = bc % 4 ? bs * 64 + buffer : buffer),
+          // and if not first of each 4 characters,
+          // convert the first 8 bits to one ascii character
+          bc++ % 4) ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6)))) : 0
+        ) {
+          // try to find character in table (0-63, not found => -1)
+          buffer = chars.indexOf(buffer);
+        }
+        return output;
+      };
 
 
 
@@ -65,8 +92,8 @@ const Login = () => {
 
                     
                     const token = responseData.token.split(".")[1] //Saco la parte del medio del token que es la que me interesa
-                    const paddedToken = token + '==='.slice((token.length + 3) % 4); // Me tiraba un error que no cumplia con la longitud o algo asi, le pongo relleno para que no tire error
-                    const decodedToken = atob(paddedToken); //Lo decodifico
+                    //const paddedToken = token + '==='.slice((token.length + 3) % 4); // Me tiraba un error que no cumplia con la longitud o algo asi, le pongo relleno para que no tire error
+                    const decodedToken = atob(token); //Lo decodifico
                     const claims = JSON.parse(decodedToken); //Lo parseo a json
                     
                     const roles = JSON.parse(claims.authorities).map((rol) => rol.authority) //Obtengo los roles del usuario
@@ -75,11 +102,11 @@ const Login = () => {
 
                     let isUser = false
                     let isTecnico = false
-                    roles.forEach((rol) => {
+                     roles.forEach((rol) => {
                         rol === 'ROLE_USER' && (isUser = true)
                         rol === 'ROLE_TECNICO' && (isTecnico = true)
                     })
-
+ 
                     const infoConRoles = { ...responseData, isAdmin: claims.isAdmin, isUser, isTecnico }
                     //console.log(infoConRoles)
 

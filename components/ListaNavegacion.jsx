@@ -56,7 +56,7 @@ const ListaNavegacion = () => {
                     >
                         <View style={styles.contBtn}>
                             {dataBase}
-                            <Text ml={3} fontSize={16} color='#7e3af2' fontWeight='bold'>ABM</Text>
+                            <Text ml={3} fontSize={16} color='#7e3af2' fontWeight='bold'>Administración</Text>
                         </View>
                     </Button>
                     <Button justifyContent='flex-start' pl={10} mb={1} bg='#dbeafe'>
