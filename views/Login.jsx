@@ -3,6 +3,8 @@ import { View, Alert, Image } from "react-native";
 import { Input, Text, Button, useToast, Spinner } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
+//Para decodificar base64
+import { atob } from 'react-native-quick-base64';
 
 //Con useContext le digo desde cual contexto quiero obtener los datos
 import { propContext, userContext } from "../context/propContext";
@@ -31,7 +33,7 @@ const Login = () => {
 
     const toast = useToast();
 
-    
+
 
     //Funcion para enviar el formulario de
     const handleSubmit = async () => {
@@ -60,11 +62,33 @@ const Login = () => {
                     console.log(responseData)
 
                     toast.show({ description: `¡Autenticado correctamente ${responseData.username}!` })
-                    
-                    
 
-                    saveStorageDatos(responseData)//Guardo los datos en el storage
-                    setUserLogueado(responseData)//Guardo los datos en el contexto
+                    
+                    const token = responseData.token.split(".")[1] //Saco la parte del medio del token que es la que me interesa
+                    const paddedToken = token + '==='.slice((token.length + 3) % 4); // Me tiraba un error que no cumplia con la longitud o algo asi, le pongo relleno para que no tire error
+                    const decodedToken = atob(paddedToken); //Lo decodifico
+                    const claims = JSON.parse(decodedToken); //Lo parseo a json
+                    
+                    const roles = JSON.parse(claims.authorities).map((rol) => rol.authority) //Obtengo los roles del usuario
+
+                    console.log(claims)
+
+                    let isUser = false
+                    let isTecnico = false
+                    roles.forEach((rol) => {
+                        rol === 'ROLE_USER' && (isUser = true)
+                        rol === 'ROLE_TECNICO' && (isTecnico = true)
+                    })
+
+                    const infoConRoles = { ...responseData, isAdmin: claims.isAdmin, isUser, isTecnico }
+                    //console.log(infoConRoles)
+
+                    //saveStorageDatos(responseData)//Guardo los datos en el storage
+                    //setUserLogueado(responseData)//Guardo los datos en el contexto
+
+                    saveStorageDatos(infoConRoles)//Guardo los datos en el storage
+                    setUserLogueado(infoConRoles)//Guardo los datos en el contexto
+
                     setIsLoged(true)//Guardo los datos en el contexto
                     /* navigation.reset({
                         index: 0,
