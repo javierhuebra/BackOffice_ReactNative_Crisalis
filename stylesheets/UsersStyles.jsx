@@ -12,6 +12,7 @@ const UsersStyles = StyleSheet.create({
       borderWidth: 1,
       padding: 5,
       borderRadius: 10,
+      backgroundColor: '#red',
    },
    barraBusqueda: {
       marginBottom: 10,

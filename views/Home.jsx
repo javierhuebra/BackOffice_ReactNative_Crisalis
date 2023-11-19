@@ -58,7 +58,7 @@ const Home = () => {
                     >
                         <View style={HomeStyles.contBtnInt}>
                             {dataBase}
-                            <Text fontSize={18} color='#7e3af2' ml={3} fontWeight='bold'>Alta, Baja y Modificación</Text>
+                            <Text fontSize={18} color='#7e3af2' ml={3} fontWeight='bold'>Administración</Text>
                         </View>
                         <Icon name="chevron-right" size={30} color="#936fd1" />
                     </Pressable>
