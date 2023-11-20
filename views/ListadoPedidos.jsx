@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View } from "react-native";
-import { Text } from "native-base";
+import { Spinner, Text } from "native-base";
 
 import GlobalStyles from "../stylesheets/GlobalStyles";
 
@@ -9,20 +9,22 @@ import { navContext } from "../context/propContext";
 
 import ListaNavegacion from "../components/ListaNavegacion";
 
-const Clientes = () => {
+const ListadoPedidos = () => {
     const { openNav } = useContext(navContext); //Para saber si esta abierto el menu de navegacion
 
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#efe6fd'}]}>
+            <View style={[GlobalStyles.containerClaro, {backgroundColor: '#dbeafe'}]}>
 
                 <View style={GlobalStyles.contSecundario}>
-                    <Text>Clientes</Text>
+                    <Text>Listado Pedidos</Text>
+                    <Text>En construcción...</Text>
+                    <Spinner color="blue.500" />
                 </View>
             </View>
         </>
     );
 }
 
-export default Clientes;
+export default ListadoPedidos;
