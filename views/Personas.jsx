@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, ScrollView, Pressable } from "react-native";
-import { Text, Input, Button, Spinner } from "native-base";
+import { View, ScrollView, Pressable, Alert } from "react-native";
+import { Text, Input, Button, Spinner, useToast } from "native-base";
 
 import GlobalStyles from "../stylesheets/GlobalStyles";
 import UsersStyles from "../stylesheets/UsersStyles";
@@ -32,6 +32,8 @@ const Personas = () => {
     const [personas, setPersonas] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
+    const toast = useToast();
+
     //Para crear la persona o editar
     const [persona, setPersona] = useState({
         nombre: '',
@@ -41,47 +43,69 @@ const Personas = () => {
 
     const handleDeleteElement = async (id) => {
         //console.log(id)
-        
-        await deletePersona(URL, id, userLogueado)
-            .then(() => {
-                fetchPersonas(URL, 0, setIsLoading, userLogueado)
-                    .then((data) => {
-                        data.sort((a, b) => {
-                            if (a.apellido < b.apellido) {
-                                return -1;
-                            }
-                            if (a.apellido > b.apellido) {
-                                return 1;
-                            }
-                            return 0;
-                        });
-                        //console.log(data)
-                        setPersonas(data)
-                    })
-            })
+        Alert.alert(
+            "Cambiar estado de la persona",
+            "¿Está seguro que desea cambiar el estado de la persona?",
+            [
+                {
+                    text: "Cancelar",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "Cambiar",
+                    onPress: () => {
+                         deletePersona(URL, id, userLogueado)
+                            .then(() => {
+                                fetchPersonas(URL, 0, setIsLoading, userLogueado)
+                                    .then((data) => {
+                                        data.sort((a, b) => {
+                                            if (a.apellido < b.apellido) {
+                                                return -1;
+                                            }
+                                            if (a.apellido > b.apellido) {
+                                                return 1;
+                                            }
+                                            return 0;
+                                        });
+                                        //console.log(data)
+                                        setPersonas(data)
+                                        toast.show({ 
+                                            description: 'Cambio de estado exitoso', 
+                                            duration: 1000,
+                                         })
+                                    })
+                            })
+                    }
+                }
+            ],
+            { cancelable: false }
+        );
+
+
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         fetchPersonas(URL, 0, setIsLoading, userLogueado)
-        .then((data) => {
-            data.sort((a, b) => {
-                if (a.apellido < b.apellido) {
-                    return -1;
-                }
-                if (a.apellido > b.apellido) {
-                    return 1;
-                }
-                return 0;
-            });
-            console.log(data)
-            setPersonas(data)
-        })
-    },[openModal])
+            .then((data) => {
+                data.sort((a, b) => {
+                    if (a.apellido < b.apellido) {
+                        return -1;
+                    }
+                    if (a.apellido > b.apellido) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                console.log(data)
+                setPersonas(data)
+            })
+    }, [openModal])
 
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#efe6fd'}]}>
+            <View style={[GlobalStyles.containerClaro, { backgroundColor: '#efe6fd' }]}>
                 <CrearPersona
                     openModal={openModal}
                     setOpenModal={setOpenModal}
@@ -89,14 +113,14 @@ const Personas = () => {
                     persona={persona}
                     setPersona={setPersona}
                 />
-                
+
                 <View style={GlobalStyles.contSecundario}>
-                <View style={UsersStyles.contHeader}>
+                    <View style={UsersStyles.contHeader}>
                         <View style={UsersStyles.barraBusqueda}>
                             <Input
                                 variant="rounded"
                                 placeholder="Buscar por usuario"
-                                
+
                             />
                         </View>
                         <Button
@@ -132,50 +156,50 @@ const Personas = () => {
                                         {
 
                                             personas.map((persona) => (
-                                                    <View key={persona.id} style={UsersStyles.fila}>
-                                                        <View style={[UsersStyles.col, UsersStyles.colMail]}>
-                                                            <Text textTransform='capitalize'>{persona.nombre} {persona.apellido}</Text>
-                                                        </View>
-                                                        <View style={[UsersStyles.col]}>
-                                                            <Text>{persona.dni}</Text>
-                                                        </View>
-                                                        <View style={[UsersStyles.col,{alignItems:'center', justifyContent:'center'}]}>
+                                                <View key={persona.id} style={UsersStyles.fila}>
+                                                    <View style={[UsersStyles.col, UsersStyles.colMail]}>
+                                                        <Text textTransform='capitalize'>{persona.nombre} {persona.apellido}</Text>
+                                                    </View>
+                                                    <View style={[UsersStyles.col]}>
+                                                        <Text>{persona.dni}</Text>
+                                                    </View>
+                                                    <View style={[UsersStyles.col, { alignItems: 'center', justifyContent: 'center' }]}>
+                                                        {
+                                                            persona.eliminado
+                                                                ?
+                                                                <Text fontWeight='bold' color='red.500'>Inactivo</Text>
+                                                                :
+                                                                <Text fontWeight='bold' color='green.500'>Activo</Text>
+                                                        }
+                                                    </View>
+                                                    <View style={[UsersStyles.col, UsersStyles.colAcciones]}>
+                                                        <Pressable
+                                                            style={UsersStyles.accionContainer}
+                                                            onPress={() => handleDeleteElement(persona.id)}
+                                                        >
+
                                                             {
                                                                 persona.eliminado
                                                                     ?
-                                                                    <Text fontWeight='bold' color='red.500'>Inactivo</Text>
+                                                                    <>{check}</>
                                                                     :
-                                                                    <Text fontWeight='bold' color='green.500'>Activo</Text>
+                                                                    <>{close}</>
                                                             }
-                                                        </View>
-                                                        <View style={[UsersStyles.col, UsersStyles.colAcciones]}>
-                                                            <Pressable
-                                                                style={UsersStyles.accionContainer}
-                                                                onPress={() => handleDeleteElement(persona.id)}
-                                                            >
 
-                                                                {
-                                                                    persona.eliminado
-                                                                        ?
-                                                                        <>{check}</>
-                                                                        :
-                                                                        <>{close}</>
-                                                                }
+                                                        </Pressable>
+                                                        <Pressable style={UsersStyles.accionContainer} onPress={() => console.log('hola')}>
+                                                            <>{pencil}</>
 
-                                                            </Pressable>
-                                                            <Pressable style={UsersStyles.accionContainer} onPress={() => console.log('hola')}>
-                                                                <>{pencil}</>
-
-                                                            </Pressable>
-                                                        </View>
+                                                        </Pressable>
                                                     </View>
+                                                </View>
 
 
-                                                ))
+                                            ))
                                         }
                                     </>
                             }
-                            
+
 
                         </View>
                     </ScrollView>
