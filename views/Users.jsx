@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 
 import { View, ScrollView, Pressable, Alert } from "react-native";
-import { Text, Button, Spinner, Input, CloseIcon, ThreeDotsIcon, CheckIcon } from 'native-base'
+import { Text, Button, Spinner, Input, useToast } from 'native-base'
 
 //Importo para la navegación
 import { useNavigation } from "@react-navigation/native";
@@ -44,6 +44,7 @@ const Users = () => {
     const [usuario, setUsuario] = useState({})
 
     const navigation = useNavigation()
+    const toast = useToast();
 
     const handleClickedElement = async (id) => {
         //console.log(id)
@@ -51,25 +52,48 @@ const Users = () => {
             Alert.alert('Error', 'No puede eliminar su propio usuario.')
             return
         }
-        await deleteUsuario(URL, id, userLogueado)
-            .then(() => {
-                fetchUsuarios(URL, 0, setIsLoading, userLogueado)
-                    .then((data) => {
-                        //console.log(data)
+        Alert.alert(
+            "Cambiar estado del usuario",
+            "¿Está seguro que desea cambiar el estado del usuario?",
+            [
+                {
+                    text: "Cancelar",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "Cambiar",
+                    onPress: () => {
+                        deleteUsuario(URL, id, userLogueado)
+                            .then(() => {
+                                fetchUsuarios(URL, 0, setIsLoading, userLogueado)
+                                    .then((data) => {
+                                        //console.log(data)
 
-                        data.sort((a, b) => {
-                            if (a.usuario < b.usuario) {
-                                return -1;
-                            }
-                            if (a.usuario > b.usuario) {
-                                return 1;
-                            }
-                            return 0;
-                        });
+                                        data.sort((a, b) => {
+                                            if (a.usuario < b.usuario) {
+                                                return -1;
+                                            }
+                                            if (a.usuario > b.usuario) {
+                                                return 1;
+                                            }
+                                            return 0;
+                                        });
 
-                        setUsuarios(data)
-                    })
-            })
+                                        setUsuarios(data)
+                                        toast.show({
+                                            description: "Estado de usuario cambiado",
+                                            duration: 1000,
+                                            
+                                        })
+                                    })
+                            })
+                    }
+                }
+            ],
+            { cancelable: false }
+        );
+
     }
 
     const handleEditElement = (objetoUsuario) => {
@@ -106,7 +130,7 @@ const Users = () => {
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#efe6fd'}]}>
+            <View style={[GlobalStyles.containerClaro, { backgroundColor: '#efe6fd' }]}>
 
                 <CrearUsuario
                     openModal={openModal}

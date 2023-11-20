@@ -35,10 +35,10 @@ const DetalleActivacion = ({ openModal, setOpenModal, suscripcion }) => {
                         cambiarEstadoSuscripcion(URL,id,userLogueado).then(() => {
                             setOpenModal(false)
                             toast.show({
-                                title: "Estado de suscripción cambiado",
-                                status: "success",
+                                description: "Estado de suscripción cambiado",
+                                
                                 duration: 1000,
-                                isClosable: true,
+                                
                             })
                         })
                     }
