@@ -37,7 +37,7 @@ const Abm = () => {
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={GlobalStyles.containerClaro}>
+            <View style={[GlobalStyles.containerClaro,{backgroundColor:'#efe6fd'}]}>
 
                 <View >
                     <Text fontSize={25} fontWeight='bold' textAlign='center' mb={1}>Administración</Text>

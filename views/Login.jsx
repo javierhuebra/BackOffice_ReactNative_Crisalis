@@ -108,6 +108,7 @@ const Login = () => {
                     })
  
                     const infoConRoles = { ...responseData, isAdmin: claims.isAdmin, isUser, isTecnico }
+                    //const infoConRoles = { ...responseData, isAdmin: false, isUser:false, isTecnico:true }
                     //console.log(infoConRoles)
 
                     //saveStorageDatos(responseData)//Guardo los datos en el storage

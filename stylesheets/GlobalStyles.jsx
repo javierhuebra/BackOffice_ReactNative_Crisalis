@@ -6,7 +6,7 @@ const GlobalStyles = StyleSheet.create({
         paddingHorizontal: 10,
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: '#E1EFC5'
+        backgroundColor: '#f6faef'
 
     },
     containerClaro:{

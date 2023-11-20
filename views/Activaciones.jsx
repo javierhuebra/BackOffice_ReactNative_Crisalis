@@ -66,7 +66,7 @@ const Activaciones = () => {
 
         <>
             {openNav && <ListaNavegacion />}
-            <View style={GlobalStyles.containerClaro}>
+            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#e9f3d4'}]}>
                 <DetalleActivacion
                     openModal={openModal}
                     setOpenModal={setOpenModal}

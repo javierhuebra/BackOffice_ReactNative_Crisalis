@@ -43,6 +43,9 @@ import Productos from './views/Productos';
 import Servicios from './views/Servicios';
 import Impuestos from './views/Impuestos';
 import Activaciones from './views/Activaciones';
+import Pedidos from './views/Pedidos';
+import AltasPedidos from './views/AltasPedidos';
+import ListadoPedidos from './views/ListadoPedidos';
 
 
 
@@ -251,6 +254,39 @@ const App = () => {
                     component={Activaciones}
                     options={{
                       title: "Activaciones",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Pedidos"
+                    component={Pedidos}
+                    options={{
+                      title: "Pedidos",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="AltasPedidos"
+                    component={AltasPedidos}
+                    options={{
+                      title: "Altas",
+                      headerRight: () => (
+                        <NavList />
+                      ),
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="ListadoPedidos"
+                    component={ListadoPedidos}
+                    options={{
+                      title: "Listado de Pedidos",
                       headerRight: () => (
                         <NavList />
                       ),

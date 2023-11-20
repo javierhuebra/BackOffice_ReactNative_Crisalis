@@ -81,7 +81,7 @@ const Personas = () => {
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={GlobalStyles.containerClaro}>
+            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#efe6fd'}]}>
                 <CrearPersona
                     openModal={openModal}
                     setOpenModal={setOpenModal}

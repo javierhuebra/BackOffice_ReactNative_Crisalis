@@ -18,7 +18,7 @@ const ButtonIcon = ({ icono, texto, background, view }) => {
 const styles = StyleSheet.create({
     background: {
         width: '30%',
-        
+        marginRight: 10,
         aspectRatio: 1,
         justifyContent: 'center',
         alignItems: 'center',
