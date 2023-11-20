@@ -4,6 +4,7 @@ import { Input, Text, Button, useToast, Spinner } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 
 
+
 //Con useContext le digo desde cual contexto quiero obtener los datos
 import { propContext, userContext } from "../context/propContext";
 
@@ -31,7 +32,35 @@ const Login = () => {
 
     const toast = useToast();
 
-    
+    const atob = (input) => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      
+        const str = input.replace(/=+$/, '');
+        let output = '';
+      
+        if (str.length % 4 === 1) {
+          throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+        }
+      
+        for (
+          // initialize result and counters
+          let bc = 0, bs, buffer, idx = 0;
+          // get next character
+          (buffer = str.charAt(idx++));
+          // character found in table? initialize bit storage and add its ascii value;
+          ~buffer &&
+          ((bs = bc % 4 ? bs * 64 + buffer : buffer),
+          // and if not first of each 4 characters,
+          // convert the first 8 bits to one ascii character
+          bc++ % 4) ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6)))) : 0
+        ) {
+          // try to find character in table (0-63, not found => -1)
+          buffer = chars.indexOf(buffer);
+        }
+        return output;
+      };
+
+
 
     //Funcion para enviar el formulario de
     const handleSubmit = async () => {
@@ -59,11 +88,35 @@ const Login = () => {
                     setLoading(false)
                     console.log(responseData)
 
-                    toast.show({ description: `¡Autenticado correctamente ${responseData.usuario}!` })
+                    toast.show({ description: `¡Autenticado correctamente ${responseData.username}!` })
 
+                    
+                    const token = responseData.token.split(".")[1] //Saco la parte del medio del token que es la que me interesa
+                    //const paddedToken = token + '==='.slice((token.length + 3) % 4); // Me tiraba un error que no cumplia con la longitud o algo asi, le pongo relleno para que no tire error
+                    const decodedToken = atob(token); //Lo decodifico
+                    const claims = JSON.parse(decodedToken); //Lo parseo a json
+                    
+                    const roles = JSON.parse(claims.authorities).map((rol) => rol.authority) //Obtengo los roles del usuario
 
-                    saveStorageDatos(responseData)//Guardo los datos en el storage
-                    setUserLogueado(responseData)//Guardo los datos en el contexto
+                    console.log(claims)
+
+                    let isUser = false
+                    let isTecnico = false
+                     roles.forEach((rol) => {
+                        rol === 'ROLE_USER' && (isUser = true)
+                        rol === 'ROLE_TECNICO' && (isTecnico = true)
+                    })
+ 
+                    const infoConRoles = { ...responseData, isAdmin: claims.isAdmin, isUser, isTecnico }
+                    //const infoConRoles = { ...responseData, isAdmin: false, isUser:false, isTecnico:true }
+                    //console.log(infoConRoles)
+
+                    //saveStorageDatos(responseData)//Guardo los datos en el storage
+                    //setUserLogueado(responseData)//Guardo los datos en el contexto
+
+                    saveStorageDatos(infoConRoles)//Guardo los datos en el storage
+                    setUserLogueado(infoConRoles)//Guardo los datos en el contexto
+
                     setIsLoged(true)//Guardo los datos en el contexto
                     /* navigation.reset({
                         index: 0,

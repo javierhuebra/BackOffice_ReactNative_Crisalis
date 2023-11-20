@@ -15,29 +15,32 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Abm = () => {
     const { openNav } = useContext(navContext); //Para saber si esta abierto el menu de navegacion
+    const { userLogueado } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
 
     const usuarios = <Icon name="users" size={40} color="#7e3af2" />;
     const personas = <Icon name="child" size={40} color="#7e3af2" />;
     const empresas = <Icon name="building" size={40} color="#7e3af2" />;
     const clientes = <Icon name="laptop" size={40} color="#7e3af2" />;
     const productos = <Icon name="diamond" size={40} color="#7e3af2" />;
-    const servicios = <Icon name="paper-plane" size={40} color="#7e3af2" />;
+    //const servicios = <Icon name="paper-plane" size={40} color="#7e3af2" />;
     const impuestos = <Icon name="rocket" size={40} color="#7e3af2" />;
 
     const usuariosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Usuarios</Text>;
     const personasTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Personas</Text>;
     const empresasTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Empresas</Text>;
     const clientesTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Clientes</Text>;
-    const productosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Productos</Text>;
-    const serviciosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Servicios</Text>;
+    const productosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Prod/Serv</Text>;
+    //const serviciosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Servicios</Text>;
     const impuestosTexto = <Text fontSize={16} fontWeight='bold' color='#7e3af2' >Impuestos</Text>;
+
+    
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={GlobalStyles.containerClaro}>
+            <View style={[GlobalStyles.containerClaro,{backgroundColor:'#efe6fd'}]}>
 
                 <View >
-                    <Text fontSize={25} fontWeight='bold' textAlign='center' mb={1}>Altas, Bajas y Modificaciones</Text>
+                    <Text fontSize={25} fontWeight='bold' textAlign='center' mb={1}>Administración</Text>
 
                 </View>
                 <View style={GlobalStyles.contSecundario}>
@@ -45,18 +48,20 @@ const Abm = () => {
                         Espacio para modificaciones generales de los datos del sistema.
                     </Text>
                     <View style={styles.contBtns}>
-                        <ButtonIcon background='#efe6fd' icono={usuarios} texto={usuariosTexto} view='Users' />
+                        {
+                            userLogueado.isAdmin &&
+                            <ButtonIcon background='#efe6fd' icono={usuarios} texto={usuariosTexto} view='Users' />
+                        }
+                        
                         <ButtonIcon background='#efe6fd' icono={personas} texto={personasTexto} view='Persons' />
                         <ButtonIcon background='#efe6fd' icono={empresas} texto={empresasTexto} view='Companies' />
                     </View>
                     <View style={styles.contBtns}>
                         <ButtonIcon background='#efe6fd' icono={clientes} texto={clientesTexto} view='Clients' />
                         <ButtonIcon background='#efe6fd' icono={productos} texto={productosTexto} view='Products' />
-                        <ButtonIcon background='#efe6fd' icono={servicios} texto={serviciosTexto} view='Services' />
-                    </View>
-                    <View style={styles.contBtns}>
                         <ButtonIcon background='#efe6fd' icono={impuestos} texto={impuestosTexto} view='Taxes' />
                     </View>
+                    
                 </View>
             </View>
         </>

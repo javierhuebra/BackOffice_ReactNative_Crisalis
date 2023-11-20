@@ -26,7 +26,7 @@ const brief = <Icon name="briefcase" size={30} color="#0e79b2" />;
 
 const Home = () => {
     const { openNav } = useContext(navContext); //Para saber si esta abierto el menu de navegacion
-
+    const { userLogueado } = useContext(userContext); //PARA SABER SI ESTA LOGUEADO
     const navigation = useNavigation()
 
 
@@ -52,27 +52,35 @@ const Home = () => {
                         En Crisalis nos centramos en mercados en los que la tecnología,
                         la innovación y el capital pueden generar valor a largo plazo e impulsar el crecimiento económico.
                     </Text>
-                    <Pressable
-                        style={[HomeStyles.intBtn, { backgroundColor: '#efe6fd' }]}
-                        onPress={() => navigation.navigate('Abm')}
-                    >
-                        <View style={HomeStyles.contBtnInt}>
-                            {dataBase}
-                            <Text fontSize={18} color='#7e3af2' ml={3} fontWeight='bold'>Alta, Baja y Modificación</Text>
-                        </View>
-                        <Icon name="chevron-right" size={30} color="#936fd1" />
-                    </Pressable>
-                    <Pressable
-                        style={[HomeStyles.intBtn, { backgroundColor: '#dbeafe' }]}
-                    >
-                        <View style={HomeStyles.contBtnInt}>
-                            {brief}
-                            <Text fontSize={18} color='#0e79b2' ml={3} fontWeight='bold'>Pedidos</Text>
-                        </View>
-                        <Icon name="chevron-right" size={30} color="#5590af" />
-                    </Pressable>
+                    {
+                        (userLogueado.isAdmin || userLogueado.isUser) &&
+                        <>
+                            <Pressable
+                                style={[HomeStyles.intBtn, { backgroundColor: '#efe6fd' }]}
+                                onPress={() => navigation.navigate('Abm')}
+                            >
+                                <View style={HomeStyles.contBtnInt}>
+                                    {dataBase}
+                                    <Text fontSize={18} color='#7e3af2' ml={3} fontWeight='bold'>Administración</Text>
+                                </View>
+                                <Icon name="chevron-right" size={30} color="#936fd1" />
+                            </Pressable>
+                            <Pressable
+                                style={[HomeStyles.intBtn, { backgroundColor: '#dbeafe' }]}
+                                onPress={() => navigation.navigate('Pedidos')}
+                            >
+                                <View style={HomeStyles.contBtnInt}>
+                                    {brief}
+                                    <Text fontSize={18} color='#0e79b2' ml={3} fontWeight='bold'>Pedidos</Text>
+                                </View>
+                                <Icon name="chevron-right" size={30} color="#5590af" />
+                            </Pressable>
+                        </>
+                    }
+
                     <Pressable
                         style={[HomeStyles.intBtn, { backgroundColor: '#e9f3d4' }]}
+                        onPress={() => navigation.navigate('Services')}
                     >
                         <View style={HomeStyles.contBtnInt}>
                             {gear}

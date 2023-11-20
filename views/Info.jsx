@@ -27,7 +27,7 @@ const Info = () => {
                     </Text>
                     <Text fontSize="xl" mb="2">Principales Características</Text>
                     <Text mb="2">
-                        <Text fontWeight="bold">Gestión de compras:</Text> Con nuestra herramienta,
+                        <Text fontWeight="bold">Gestión de ventas:</Text> Con nuestra herramienta,
                         puedes realizar un seguimiento detallado de todas tus compras de productos.
                         Desde el pedido hasta la entrega, mantenemos todo bajo control.
                     </Text>

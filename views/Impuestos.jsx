@@ -15,7 +15,7 @@ const Impuestos = () => {
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={GlobalStyles.containerClaro}>
+            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#efe6fd'}]}>
 
                 <View style={GlobalStyles.contSecundario}>
                     <Text>Impuestos</Text>

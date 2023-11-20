@@ -106,7 +106,7 @@ const Users = () => {
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={GlobalStyles.containerClaro}>
+            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#efe6fd'}]}>
 
                 <CrearUsuario
                     openModal={openModal}

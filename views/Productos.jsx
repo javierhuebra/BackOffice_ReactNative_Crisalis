@@ -15,10 +15,10 @@ const Productos = () => {
     return (
         <>
             {openNav && <ListaNavegacion />}
-            <View style={GlobalStyles.containerClaro}>
+            <View style={[GlobalStyles.containerClaro, {backgroundColor:'#efe6fd'}]}>
                 
                 <View style={GlobalStyles.contSecundario}>
-                    <Text>Productos</Text>
+                    <Text>Productos/Servicios</Text>
                 </View>
             </View>
         </>

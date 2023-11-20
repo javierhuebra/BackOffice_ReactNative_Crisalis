@@ -48,24 +48,46 @@ const ListaNavegacion = () => {
                             <Text ml={3} fontSize={16} color='#43880a' fontWeight='bold'>Home</Text>
                         </View>
                     </Button>
-                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#efe6fd'
+
+                    {
+                        (userLogueado.isAdmin || userLogueado.isUser) &&
+                        <>
+                            <Button justifyContent='flex-start' pl={10} mb={1} bg='#efe6fd'
+                                onPress={() => {
+                                    setOpenNav(false)
+                                    navigation.navigate('Abm')
+                                }}
+                            >
+                                <View style={styles.contBtn}>
+                                    {dataBase}
+                                    <Text ml={3} fontSize={16} color='#7e3af2' fontWeight='bold'>Administración</Text>
+                                </View>
+                            </Button>
+                            <Button justifyContent='flex-start' pl={10} mb={1} bg='#dbeafe'
+                                onPress={() => {
+                                    setOpenNav(false)
+                                    navigation.navigate('Pedidos')
+                                }}
+                            >
+                                <View style={styles.contBtn}>
+                                    {brief}
+                                    <Text ml={3} fontSize={16} color='#0e79b2' fontWeight='bold'>Pedidos</Text>
+                                </View>
+                            </Button>
+                        </>
+                    }
+
+
+
+
+
+
+                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#e9f3d4'
                         onPress={() => {
                             setOpenNav(false)
-                            navigation.navigate('Abm')
+                            navigation.navigate('Services')
                         }}
                     >
-                        <View style={styles.contBtn}>
-                            {dataBase}
-                            <Text ml={3} fontSize={16} color='#7e3af2' fontWeight='bold'>ABM</Text>
-                        </View>
-                    </Button>
-                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#dbeafe'>
-                        <View style={styles.contBtn}>
-                            {brief}
-                            <Text ml={3} fontSize={16} color='#0e79b2' fontWeight='bold'>Pedidos</Text>
-                        </View>
-                    </Button>
-                    <Button justifyContent='flex-start' pl={10} mb={1} bg='#e9f3d4'>
                         <View style={styles.contBtn}>
                             {gear}
                             <Text ml={3} fontSize={16} color='#88af3a' fontWeight='bold'>Servicios</Text>
@@ -89,7 +111,7 @@ const ListaNavegacion = () => {
 
 const styles = StyleSheet.create({
     contenedorLista: {
-        
+
         width: '100%',
         height: '100%',
         position: 'absolute',
@@ -99,7 +121,8 @@ const styles = StyleSheet.create({
     },
     subContainer: {
         width: '60%',
-        height: 320,
+
+        height: 315,
         padding: 10,
         borderBottomLeftRadius: 10,
         backgroundColor: 'white',
@@ -115,7 +138,7 @@ const styles = StyleSheet.create({
     },
     contBotones: {
         flex: 1,
-        
+
     },
     contBtn: {
         flexDirection: 'row',
