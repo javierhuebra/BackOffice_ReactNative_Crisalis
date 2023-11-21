@@ -1,8 +1,12 @@
 # App Mobile - BackOffice Crisalis
 
-![Alt text](assets/images/logoColor.png)
 
-## DESCARGA LA ÚLTIMA VERSIÓN DE LA APP EN DESARROLLO
+<div align='center'>
+  <img src="./assets/images/logoColor.png" width="500px"/>
+  
+</div>
+
+## DESCARGÁ LA ÚLTIMA VERSIÓN DE LA APP EN DESARROLLO
  <div align='center'>
   <img src="./capturas/qr.png" width="300px"/>
   
@@ -59,21 +63,5 @@
 
 
 
-### Especificaciones de react navigation para tener en cuenta
 
-REACT NAVIGATION:
-
-DEPENDENCIAS USADAS PARA REACT NAVIGATION + IMPORTS (Atencion el return del app debe estar contenido en <></> sino no anda)
-
-- npm install @react-navigation/native
-
-- npm install react-native-screens
-
-- npm install react-native-safe-area-context
-
-- npm install @react-navigation/native-stack
-
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
 
