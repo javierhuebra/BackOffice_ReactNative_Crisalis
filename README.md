@@ -17,6 +17,14 @@
     </a>
 </div>
 
+## Credenciales para navegar por la app y explorarla:
+
+<div align="center">
+ <b>Usuario:</b> admin
+  <br>
+  <b>Password:</b> admin
+</div>
+
 ### Este proyecto reutiliza la tecnología que se eligió para el front end para poder así, con los conceptos del desarrollo web, poder crear una extensión multiplataforma de la aplicación principal (web).
 
 ### React Native provee soporte nativo para iOS y Android, es decir que la aplicación resultante se puede buildear para los dos sistemas operativos mobile mas utilizados al día de la fecha manejando sus respectivas apis (crea componentes nativos). 
